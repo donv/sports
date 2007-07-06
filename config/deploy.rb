@@ -5,7 +5,7 @@ role :app, "www.kubosch.no"
 role :db,  "www.kubosch.no", :primary => true
 
 set :user, "donv"
-use_sudo = false
+set :use_sudo, false
 
 desc "The spinner task is used by :cold_deploy to start the application up"
 task :spinner, :roles => :app do
