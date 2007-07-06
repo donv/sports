@@ -1,4 +1,4 @@
-set :application, "sportsmistress"
+set :application, "sports"
 set :repository, "svn+ssh://donv@source.kubosch.no/var/svn/trunk/#{application}"
 
 role :app, "www.kubosch.no"
