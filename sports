@@ -1,0 +1,27 @@
+#!/bin/bash
+#
+# sports      Startup script for the sports application
+#
+# chkconfig: 345 88 12
+# description: Sports
+
+# See how we were called.
+case "$1" in
+  start)
+        mongrel_rails start -p 3007 -e production -c /u/apps/sports/current -d 1>/u/apps/sports/shared/log/stdout.log 2>/u/apps/sports/shared/log/stderr.log
+        ;;
+  stop)
+        mongrel_rails stop -c /u/apps/sports/current
+        ;;
+  restart)
+        mongrel_rails restart -c /u/apps/sports/current
+        ;;
+  status)
+        ps -ef | grep sports
+        ;;
+  *)
+        echo $"Usage: $prog {start|stop|restart|status}"
+        exit 1
+esac
+
+exit 0
