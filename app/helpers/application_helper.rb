@@ -1,4 +1,12 @@
-# Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-    include Localization
+  include Localization
+  
+  def h2(object)
+    if object.is_a? Time
+      object.strftime '%Y-%m-%d'
+    else
+      h object
+    end
+  end
+  
 end
