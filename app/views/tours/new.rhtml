@@ -2,7 +2,6 @@
 
 <% form_tag :action => 'create' do %>
   <%= render :partial => 'form' %>
-  <%= submit_tag "Create" %>
+  <%= submit_tag l(:save) %>
+  <%= link_to l(:back), :action => 'list' %>
 <% end %>
-
-<%= link_to 'Back', :action => 'list' %>

@@ -9,7 +9,7 @@ class ToursController < ApplicationController
          :redirect_to => { :action => :list }
 
   def list
-    @tour_pages, @tours = paginate :tours, :per_page => 10
+    @tour_pages, @tours = paginate :tours, :per_page => 10, :order => 'started_at DESC'
   end
 
   def show
