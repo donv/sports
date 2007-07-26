@@ -1,11 +1,11 @@
 module ApplicationHelper
   include Localization
   
-  def h2(object)
+  def h(object)
     if object.is_a? Time
       object.strftime '%Y-%m-%d'
     else
-      h object
+      super object
     end
   end
   

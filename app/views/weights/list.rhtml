@@ -10,7 +10,7 @@
 <% for weight in @weights %>
   <tr>
   <% for column in Weight.content_columns %>
-    <td><%=h2 weight.send(column.name) %></td>
+    <td><%=h weight.send(column.name) %></td>
   <% end %>
     <td><%= link_to 'Show', :action => 'show', :id => weight %></td>
     <td><%= link_to 'Edit', :action => 'edit', :id => weight %></td>
