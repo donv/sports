@@ -1,8 +1,0 @@
-<% for column in Tour.content_columns %>
-<p>
-  <b><%= column.human_name %>:</b> <%=h @tour.send(column.name) %>
-</p>
-<% end %>
-
-<%= link_to 'Edit', :action => 'edit', :id => @tour %> |
-<%= link_to 'Back', :action => 'list' %>

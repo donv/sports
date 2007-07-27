@@ -2,7 +2,11 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 3) do
+ActiveRecord::Schema.define(:version => 4) do
+
+  create_table "routes", :force => true do |t|
+    t.column "name", :string, :limit => 64, :null => false
+  end
 
   create_table "tours", :force => true do |t|
     t.column "started_at",    :datetime,                               :null => false
@@ -12,6 +16,7 @@ ActiveRecord::Schema.define(:version => 3) do
     t.column "max_speed",     :decimal,  :precision => 4, :scale => 1, :null => false
     t.column "calories",      :decimal,  :precision => 5, :scale => 1, :null => false
     t.column "odo",           :decimal,  :precision => 7, :scale => 1, :null => false
+    t.column "route_id",      :integer,                                :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -29,5 +34,7 @@ ActiveRecord::Schema.define(:version => 3) do
     t.column "created_at", :datetime,                               :null => false
     t.column "weight",     :decimal,  :precision => 4, :scale => 1, :null => false
   end
+
+  add_foreign_key "tours", ["route_id"], "routes", ["id"], :name => "tours_route_id_fkey"
 
 end
