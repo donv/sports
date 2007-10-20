@@ -48,4 +48,40 @@ class WeightsController < ApplicationController
     Weight.find(params[:id]).destroy
     redirect_to :action => 'list'
   end
+
+  def graph_small
+    graph 160
+  end
+  
+  def graph(size = 640)
+    g = Gruff::Line.new(size)
+    g.theme_37signals
+    g.title = l(:chart)
+    g.font = '/usr/share/fonts/bitstream-vera/Vera.ttf'
+    g.legend_font_size = 14
+    g.hide_dots = true
+    #g.colors = %w{blue orange green grey grey lightblue #d7a790}
+    
+    weights = Weight.find(:all, :order => :created_at)
+    
+    g.data(l(:weight), weights.map {|t| t.weight})
+    
+    #g.minimum_value = 0
+    
+    labels = {}
+    weights.each_with_index do |t, i|
+      labels[i] = t.created_at.strftime('%Y-%m-%d')
+    end
+    g.labels = labels
+    
+    # g.draw_vertical_legend
+    
+    g.maximum_value = g.maximum_value.to_i
+    
+    send_data(g.to_blob,
+              :disposition => 'inline', 
+    :type => 'image/png', 
+    :filename => "weights_chart.png")
+  end
+  
 end

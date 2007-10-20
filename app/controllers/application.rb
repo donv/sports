@@ -22,9 +22,14 @@ class ApplicationController < ActionController::Base
   def populate_layout
     @sidebars = [
       {
+        :title => 'Weight',
+        :content => %Q{<a href="#{url_for(:controller => 'weights', :action => :graph, :id => 1, :format => 'png')}">#{image_tag(url_for(:controller => 'weights', :action => :graph_small, :id => 1, :format => 'png'))}</a>},
+        :options => {:controller => 'weights'}
+      },
+      {
         :title => 'Tours',
-        :content => image_tag(url_for(:controller => 'tours', :action => :graph_small, :id => 1, :format => 'png')),
-        :options => {:controller => 'tours', :action => :graph, :id => 1, :format => 'png'}
+        :content => %Q{<a href="#{url_for(:controller => 'tours', :action => :graph, :id => 1, :format => 'png')}">#{image_tag(url_for(:controller => 'tours', :action => :graph_small, :id => 1, :format => 'png'))}</a>},
+        :options => {:controller => 'tours'}
       }
     ]
   end
