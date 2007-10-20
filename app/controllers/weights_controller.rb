@@ -66,7 +66,7 @@ class WeightsController < ApplicationController
     
     g.data(l(:weight), weights.map {|t| t.weight})
     
-    #g.minimum_value = 0
+    g.minimum_value = g.minimum_value.to_i
     
     labels = {}
     weights.each_with_index do |t, i|
