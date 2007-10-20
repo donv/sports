@@ -70,7 +70,7 @@ class WeightsController < ApplicationController
     
     labels = {}
     weights.each_with_index do |t, i|
-      labels[i] = t.created_at.strftime('%Y-%m-%d')
+      labels[i] = t.created_at.strftime('%y-%m-%d')
     end
     g.labels = labels
     
