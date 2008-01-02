@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
       },
       {
         :title => 'Browser',
-        :content => "<ul><li>#{request.user_agent}</li>
+        :content => "<ul><li>#{request.user_agent if request.respond_to? :user_agent}</li>
                          <li>#{@handsets['Mozilla/5.0']}</li>
                          <li>#{@fallbacks['Mozilla/5.0']}</li>
                          <li>#{@handsets.find {|k, v| v.user_agent =~ /Mozilla\/5.0/}}</li>

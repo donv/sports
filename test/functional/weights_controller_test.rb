@@ -12,7 +12,7 @@ class WeightsControllerTest < Test::Unit::TestCase
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
 
-    @first_id = weights(:first).id
+    @first_id = weights(:one).id
   end
 
   def test_index
@@ -52,7 +52,7 @@ class WeightsControllerTest < Test::Unit::TestCase
   def test_create
     num_weights = Weight.count
 
-    post :create, :weight => {}
+    post :create, :weight => {:weight => 109.9}
 
     assert_response :redirect
     assert_redirected_to :action => 'list'

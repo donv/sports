@@ -1,5 +1,10 @@
 <% @page_title = 'Listing weights' %>
 
+<% form_tag :action => 'create' do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "Create" %>
+<% end %>
+
 <table>
   <tr>
   <% for column in Weight.content_columns %>

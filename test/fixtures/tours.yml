@@ -1,5 +1,20 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 one:
   id: 1
+  started_at: 2008-01-01T20:23
+  total_time: '17:23:04'
+  distance: 4.5
+  average_speed: 30.5
+  max_speed: 50.5
+  calories: 350
+  odo: 4.5
+  route_id: 1
 two:
   id: 2
+  started_at: 2008-01-03T20:23
+  total_time: '16:23:04'
+  distance: 4.5
+  average_speed: 36.5
+  max_speed: 50.5
+  calories: 450
+  odo: 9.0
+  route_id: 1

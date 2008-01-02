@@ -12,7 +12,7 @@ class ToursControllerTest < Test::Unit::TestCase
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
 
-    @first_id = tours(:first).id
+    @first_id = tours(:one).id
   end
 
   def test_index
