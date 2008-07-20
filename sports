@@ -4,20 +4,36 @@
 #
 # chkconfig: 345 88 12
 # description: Sports
+# pidfile: /u/apps/$APP/shared/log/mongrel.pid
+
+. /etc/rc.d/init.d/functions
+
+APP=sports
+RUN_AS_USER=donv
+PORT=3007
+pidfile=${PIDFILE-/u/apps/$APP/shared/log/mongrel.pid}
+APP_DIR="/u/apps/$APP/current"
+LOG_DIR="/u/apps/$APP/shared/log"
+
+USER=`whoami`
 
 # See how we were called.
 case "$1" in
   start)
-        mongrel_rails start -p 3007 -e production -c /u/apps/sports/current -d 1>/u/apps/sports/shared/log/stdout.log 2>/u/apps/sports/shared/log/stderr.log
+	if [ -f $pidfile ] && ! ps h `cat $pidfile` > /dev/null
+	then
+	    rm -f $pidfile
+	fi
+        su - $RUN_AS_USER -c "mongrel_rails start -p $PORT -e production -c $APP_DIR -d 1>$LOG_DIR/stdout.log 2>$LOG_DIR/stderr.log"
         ;;
   stop)
-        mongrel_rails stop -c /u/apps/sports/current
+        su - $RUN_AS_USER -c "mongrel_rails stop -c $APP_DIR"
         ;;
   restart)
-        mongrel_rails restart -c /u/apps/sports/current
+        su - $RUN_AS_USER -c "mongrel_rails restart -c $APP_DIR"
         ;;
   status)
-        ps -ef | grep sports
+        ps -ef | grep $APP
         ;;
   *)
         echo $"Usage: $prog {start|stop|restart|status}"
