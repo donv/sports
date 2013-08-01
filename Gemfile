@@ -8,6 +8,8 @@ gem 'jquery-rails'
 gem 'rails', '3.2.14'
 gem 'rmagick4j'
 gem 'schema_plus', '<1.0.0'
+gem 'trinidad'
+gem 'trinidad_daemon_extension'
 gem 'will_paginate'
 
 group :assets do

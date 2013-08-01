@@ -1,21 +1,44 @@
 #!/bin/bash
 #
-# sports      Startup script for the sports application
+# sports      Startup script for the Sports web application
 #
 # chkconfig: 345 88 12
-# description: Sports
-# pidfile: /u/apps/$APP/shared/log/mongrel.pid
+# description: Sports web application
+# pidfile: /u/apps/$APP/shared/log/server.pid
 
 . /etc/rc.d/init.d/functions
 
 APP=sports
-RUN_AS_USER=capistrano
+RAILS_ENV=production
 PORT=3007
-pidfile=${PIDFILE-/u/apps/$APP/shared/log/mongrel.pid}
+RUN_AS_USER=capistrano
+pidfile=${PIDFILE-/u/apps/$APP/shared/log/server.pid}
 APP_DIR="/u/apps/$APP/current"
 LOG_DIR="/u/apps/$APP/shared/log"
 
+START_CMD="cd $APP_DIR ;
+  export JAVA_HOME=/usr/java/default ;
+  export JRUBY_HOME=/usr/local/jruby ;
+  export PATH=\$JAVA_HOME/bin:\$JRUBY_HOME/bin:\$PATH ;
+  export JRUBY_OPTS='-J-Xmx2G --server -J-Djava.awt.headless=true -J-Dawt.toolkit=sun.awt.HToolkit' ;
+  jruby --version ;
+  jruby -S bundle exec trinidad -p $PORT -e $RAILS_ENV -t -ldaemon --daemonize $pidfile -d $APP_DIR 1>$LOG_DIR/stdout.log 2>$LOG_DIR/stderr.log
+"
+STOP_CMD="kill `cat $pidfile`"
+
 USER=`whoami`
+
+run() {
+	cmd=$1
+	if [ "$USER" != "$RUN_AS_USER" ]; then
+		echo Running as $USER
+        echo su - $RUN_AS_USER -c \"$cmd\"
+        su - $RUN_AS_USER -c "$cmd"
+    else
+    	echo $cmd
+        eval $cmd
+    fi
+}
 
 # See how we were called.
 case "$1" in
@@ -24,19 +47,22 @@ case "$1" in
 	then
 	    rm -f $pidfile
 	fi
-        su - $RUN_AS_USER -c "mongrel_rails start -p $PORT -e production -c $APP_DIR -d 1>$LOG_DIR/stdout.log 2>$LOG_DIR/stderr.log"
+    run "$START_CMD"
         ;;
   stop)
-        su - $RUN_AS_USER -c "mongrel_rails stop -c $APP_DIR"
+    run "$STOP_CMD"
+    rm -f ${pidfile}
         ;;
   restart)
-        su - $RUN_AS_USER -c "mongrel_rails restart -c $APP_DIR"
+    run "$STOP_CMD"
+    rm -f ${pidfile}
+    run "$START_CMD"
         ;;
   status)
         ps -ef | grep $APP
         ;;
   *)
-        echo $"Usage: $prog {start|stop|restart|status}"
+        echo "Usage: $prog {start|stop|restart|status}"
         exit 1
 esac
 
