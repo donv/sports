@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class WeightTest < Test::Unit::TestCase
+class WeightTest < ActiveSupport::TestCase
   fixtures :weights
 
   # Replace this with your real tests.

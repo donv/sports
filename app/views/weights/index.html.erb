@@ -1,0 +1,27 @@
+<% @page_title = 'Listing weights' %>
+
+<%= render :partial => 'form' %>
+
+<table>
+  <tr>
+    <% for column in Weight.content_columns %>
+        <th><%= column.human_name %></th>
+    <% end %>
+  </tr>
+
+  <% for weight in @weights %>
+      <tr>
+        <td><%= weight.created_at.strftime('%Y-%m-%d') %></td>
+        <td><%= weight.weight %></td>
+        <td><%= link_to 'Show', :action => 'show', :id => weight %></td>
+        <td><%= link_to 'Edit', :action => 'edit', :id => weight %></td>
+        <td><%= link_to 'Destroy', {:action => 'destroy', :id => weight}, :confirm => 'Are you sure?', :method => :post %></td>
+      </tr>
+  <% end %>
+</table>
+
+<%= will_paginate @weights %>
+
+<br/>
+
+<%= link_to 'New weight', :action => 'new' %>

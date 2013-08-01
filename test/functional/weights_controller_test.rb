@@ -4,7 +4,7 @@ require 'weights_controller'
 # Re-raise errors caught by the controller.
 class WeightsController; def rescue_action(e) raise e end; end
 
-class WeightsControllerTest < Test::Unit::TestCase
+class WeightsControllerTest < ActionController::TestCase
   fixtures :weights
 
   def setup
@@ -18,16 +18,7 @@ class WeightsControllerTest < Test::Unit::TestCase
   def test_index
     get :index
     assert_response :success
-    assert_template 'list'
-  end
-
-  def test_list
-    get :list
-
-    assert_response :success
-    assert_template 'list'
-
-    assert_not_nil assigns(:weights)
+    assert_template :index
   end
 
   def test_show
@@ -55,7 +46,7 @@ class WeightsControllerTest < Test::Unit::TestCase
     post :create, :weight => {:weight => 109.9}
 
     assert_response :redirect
-    assert_redirected_to :action => 'list'
+    assert_redirected_to :action => :graph, :format => :png
 
     assert_equal num_weights + 1, Weight.count
   end
@@ -73,7 +64,7 @@ class WeightsControllerTest < Test::Unit::TestCase
   def test_update
     post :update, :id => @first_id
     assert_response :redirect
-    assert_redirected_to :action => 'show', :id => @first_id
+    assert_redirected_to :action => :show, :id => @first_id
   end
 
   def test_destroy
@@ -83,7 +74,7 @@ class WeightsControllerTest < Test::Unit::TestCase
 
     post :destroy, :id => @first_id
     assert_response :redirect
-    assert_redirected_to :action => 'list'
+    assert_redirected_to :action => :index
 
     assert_raise(ActiveRecord::RecordNotFound) {
       Weight.find(@first_id)

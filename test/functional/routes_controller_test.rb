@@ -4,7 +4,7 @@ require 'routes_controller'
 # Re-raise errors caught by the controller.
 class RoutesController; def rescue_action(e) raise e end; end
 
-class RoutesControllerTest < Test::Unit::TestCase
+class RoutesControllerTest < ActionController::TestCase
   def setup
     @controller = RoutesController.new
     @request    = ActionController::TestRequest.new

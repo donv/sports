@@ -1,0 +1,11 @@
+<%= form_for :weight do |f| %>
+    <%= f.error_messages %>
+
+    <p><label for="weight_created_at">Created at</label><br/>
+      <%= f.datetime_select 'created_at' %></p>
+
+    <p><label for="weight_weight">Weight</label><br/>
+      <%= f.text_field 'weight' %></p>
+
+    <%= f.submit %>
+<% end %>

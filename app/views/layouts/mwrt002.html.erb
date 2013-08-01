@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title><%= @application_title || 'Kubosch Consulting' %>
+    - <%= @page_title || @application_description || 'Welcome' %></title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="content-language" content="en"/>
+  <meta name="description" content="kubosch.no - bringing martial arts and information technology together."/>
+  <meta name="keywords" content="kubosch,kampsport,jujutsu,budo,judo,karate,aikido,aiki-jutsu,aikijutsu,ruby,rails,web,hosting"/>
+  <meta http-equiv="pragma" content="no-cache"/>
+  <meta name="robots" content="index,follow"/>
+  <meta name="verify-v1" content="p6WZWKVdHWvV/p2P/wgMqCfv1MzhCFn8OqnpiNn7uCM="/>
+  <meta name="rating" content="general"/>
+  <meta name="author" content="Uwe Kubosch http://kubosch.no"/>
+  <meta name="copyright" content="Copyright &copy; 2006"/>
+  <link href="/favicon.ico" rel="SHORTCUT ICON"/>
+
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+
+  <%= stylesheet_link_tag 'mwrt002', :media => 'screen' %>
+
+  <script type="text/javascript">
+      function handlePageEvent(event) {
+          if (event.altKey && event.shiftKey && event.charCode == 78) {
+              window.location = '<%=url_for(:controller => 'backlogs', :action => :new)%>';
+          } else if (event.altKey && event.charCode == 110) {
+              window.location = '<%=url_for(:controller => 'tasks', :action => :new, :backlog => (@backlog ? @backlog.id : nil) ) %>';
+          } else {
+//    alert("shift: " + event.shiftKey + ", alt: " + event.altKey + ", ctrl: " + event.ctrlKey + ", " + event.charCode + ", " + event.keyCode);
+          }
+      }
+  </script>
+</head>
+
+<body onkeypress="handlePageEvent(event)">
+<div id="wrap">
+  <div id="leftcol">
+    <div id="header">
+      <div id="introtext">
+        <h1><%= @application_title || 'Kubosch Consulting' %></h1>
+
+        <h3><%= @page_title || @application_description %></h3>
+      </div>
+    </div>
+    <div id="spotlight">
+      <%= yield %>
+    </div>
+  </div>
+  <div id="rightcol">
+    <% if @shortcuts %>
+        <div class="rblock">
+          <div class="btitle">
+            <h4><%= l :shortcuts %></h4>
+          </div>
+          <table>
+            <% @shortcuts.each_with_index do |shortcut, index| %>
+                <% if shortcut[:options] %>
+                    <tr>
+                      <td valign="top"><%= shortcut[:key] %></td>
+                      <td><%= link_to t(shortcut[:function]), shortcut[:options], :id => shortcut[:function], :tabindex => index+1 %></td>
+                    </tr>
+                <% else %>
+                    <tr>
+                      <td valign="top"><%= shortcut[:key] %></td>
+                      <td><%= l shortcut[:function] %></td>
+                    </tr>
+                <% end %>
+            <% end %>
+          </table>
+        </div>
+    <% end %>
+
+    <% (@sidebars || []).each do |sidebar| %>
+        <div class="rblock">
+          <div class="btitle">
+            <% if sidebar[:options] %>
+                <h4><%= link_to h(sidebar[:title]), sidebar[:options] %></h4>
+            <% else %>
+                <h4><%= h(sidebar[:title]) %></h4>
+            <% end %>
+          </div>
+          <%= sidebar[:content] %>
+        </div>
+    <% end %>
+  </div>
+  <div id="footer">
+    <div id="footertext">Copyright &copy; 2006 Kubosch Consulting | All Rights
+      Reserved<br/>Design By
+      <a href="http://mywebresource.com" title="Design By MyWebResource">MyWebResource</a>
+      |
+      <a href="http://validator.w3.org/check?uri=referer" title="W3C XHTML 1.0 Strict Compliant">W3C
+        XHTML 1.0</a> |
+      <a href="http://jigsaw.w3.org/css-validator/" title="W3C CSS 2.0 Compliant">W3C
+        CSS 2.0</a></div>
+  </div>
+</div>
+</body>
+</html>

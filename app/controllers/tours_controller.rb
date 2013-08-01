@@ -1,8 +1,6 @@
 require 'gruff'
 
 class ToursController < ApplicationController
-  active_scaffold :tour
-  
   def graph_small
     graph 160
   end
@@ -10,16 +8,16 @@ class ToursController < ApplicationController
   def graph(size = 640)
     g = Gruff::Line.new(size)
     g.theme_37signals
-    g.title = l(:chart)
+    g.title = t(:chart)
     g.font = '/usr/share/fonts/bitstream-vera/Vera.ttf'
     g.legend_font_size = 14
     g.hide_dots = true
     #g.colors = %w{blue orange green grey grey lightblue #d7a790}
     
-    tours = Tour.find(:all, :order => :started_at)
+    tours = Tour.all(:order => :started_at)
     
-    g.data(l(:time), tours.map {|t| t.total_time.min + t.total_time.sec / 60})
-    g.data(l(:distance), tours.map {|t| t.distance})
+    g.data(t(:time), tours.map {|t| t.total_time.min + t.total_time.sec / 60})
+    g.data(t(:distance), tours.map {|t| t.distance})
     
     g.minimum_value = 0
     
@@ -36,7 +34,7 @@ class ToursController < ApplicationController
     send_data(g.to_blob,
               :disposition => 'inline', 
     :type => 'image/png', 
-    :filename => "tours_chart.png")
+    :filename => 'tours_chart.png')
   end
   
 end

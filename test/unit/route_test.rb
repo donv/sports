@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class RouteTest < Test::Unit::TestCase
+class RouteTest < ActiveSupport::TestCase
   fixtures :routes
 
   # Replace this with your real tests.

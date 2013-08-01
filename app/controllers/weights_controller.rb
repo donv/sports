@@ -1,15 +1,6 @@
 class WeightsController < ApplicationController
   def index
-    list
-    render :action => 'list'
-  end
-
-  # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-  verify :method => :post, :only => [ :destroy, :create, :update ],
-         :redirect_to => { :action => :list }
-
-  def list
-    @weight_pages, @weights = paginate :weights, :per_page => 10, :order => 'created_at DESC'
+    @weights = Weight.paginate :page => params[:page], :per_page => 10, :order => 'created_at DESC'
   end
 
   def show
@@ -24,7 +15,7 @@ class WeightsController < ApplicationController
     @weight = Weight.new(params[:weight])
     if @weight.save
       flash[:notice] = 'Weight was successfully created.'
-      redirect_to :action => 'list'
+      redirect_to :action => :graph, :format => :png
     else
       render :action => 'new'
     end
@@ -46,42 +37,33 @@ class WeightsController < ApplicationController
 
   def destroy
     Weight.find(params[:id]).destroy
-    redirect_to :action => 'list'
+    redirect_to :action => 'index'
   end
 
   def graph_small
     graph 160
   end
-  
+
   def graph(size = 640)
+    weights = Weight.all(:order => :created_at)
+
     g = Gruff::Line.new(size)
-    g.theme_37signals
-    g.title = l(:chart)
-    g.font = '/usr/share/fonts/bitstream-vera/Vera.ttf'
-    g.legend_font_size = 14
-    g.hide_dots = true
-    #g.colors = %w{blue orange green grey grey lightblue #d7a790}
-    
-    weights = Weight.find(:all, :order => :created_at)
-    
-    g.data(l(:weight), weights.map {|t| t.weight})
-    
+    g.title = t(:weight).capitalize
+    g.hide_legend = true
+    g.hide_dots = true if weights.size > 25
+
+    g.dataxy(t(:weight), weights.map { |t| t.created_at.to_i }, weights.map { |t| t.weight })
+
     g.minimum_value = g.minimum_value.to_i
-    
+
     labels = {}
-    weights.each_with_index do |t, i|
-      labels[i] = t.created_at.strftime('%y-%m-%d')
+    weights.each do |w|
+      labels[w.created_at.to_date.midnight.to_i] = w.created_at.strftime('%Y-%m-%d')
     end
     g.labels = labels
-    
-    # g.draw_vertical_legend
-    
-    g.maximum_value = g.maximum_value.to_i
-    
-    send_data(g.to_blob,
-              :disposition => 'inline', 
-    :type => 'image/png', 
-    :filename => "weights_chart.png")
+
+    send_data(g.to_blob, :disposition => 'inline', :type => 'image/png',
+              :filename => 'weights_chart.png')
   end
-  
+
 end

@@ -4,7 +4,7 @@ require 'tours_controller'
 # Re-raise errors caught by the controller.
 class ToursController; def rescue_action(e) raise e end; end
 
-class ToursControllerTest < Test::Unit::TestCase
+class ToursControllerTest < ActionController::TestCase
   fixtures :tours
 
   def setup
