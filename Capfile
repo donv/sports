@@ -1,2 +1,5 @@
-load 'deploy' if respond_to?(:namespace) # cap2 differentiator
+load 'deploy'
+load 'deploy/assets'
+require 'rubygems'
+require 'bundler/capistrano'
 load 'config/deploy'

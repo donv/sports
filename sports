@@ -9,7 +9,7 @@
 . /etc/rc.d/init.d/functions
 
 APP=sports
-RUN_AS_USER=donv
+RUN_AS_USER=capistrano
 PORT=3007
 pidfile=${PIDFILE-/u/apps/$APP/shared/log/mongrel.pid}
 APP_DIR="/u/apps/$APP/current"
