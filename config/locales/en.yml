@@ -2,7 +2,9 @@ en:
   available_forums: Available forums
   back: Back
   chart: Chart
+  distance: "Distance"
   hello: "Hello world"
   home: Home
   registration_email_sent: Email was sent to %s
+  time: "Time"
   weight: weight

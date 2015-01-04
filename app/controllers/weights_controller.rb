@@ -1,6 +1,7 @@
 class WeightsController < ApplicationController
   def index
-    @weights = Weight.paginate :page => params[:page], :per_page => 10, :order => 'created_at DESC'
+    @weights = Weight.order('created_at DESC').
+        paginate(page: params[:page], per_page: 10)
   end
 
   def show
@@ -12,12 +13,12 @@ class WeightsController < ApplicationController
   end
 
   def create
-    @weight = Weight.new(params[:weight])
+    @weight = Weight.new(weight_params)
     if @weight.save
       flash[:notice] = 'Weight was successfully created.'
-      redirect_to :action => :graph, :format => :png
+      redirect_to action: :graph, format: :png
     else
-      render :action => 'new'
+      render action: :new
     end
   end
 
@@ -27,17 +28,17 @@ class WeightsController < ApplicationController
 
   def update
     @weight = Weight.find(params[:id])
-    if @weight.update_attributes(params[:weight])
+    if @weight.update_attributes(weight_params)
       flash[:notice] = 'Weight was successfully updated.'
-      redirect_to :action => 'show', :id => @weight
+      redirect_to action: :show, id: @weight
     else
-      render :action => 'edit'
+      render action: :edit
     end
   end
 
   def destroy
     Weight.find(params[:id]).destroy
-    redirect_to :action => 'index'
+    redirect_to action: :index
   end
 
   def graph_small
@@ -45,14 +46,16 @@ class WeightsController < ApplicationController
   end
 
   def graph(size = 640)
-    weights = Weight.all(:order => :created_at)
+    weights = Weight.order(:created_at).to_a
 
     g = Gruff::Line.new(size)
     g.title = t(:weight).capitalize
     g.hide_legend = true
     g.hide_dots = true if weights.size > 25
 
-    g.dataxy(t(:weight), weights.map { |t| t.created_at.to_i }, weights.map { |t| t.weight })
+    if weights.any?
+      g.dataxy(t(:weight), weights.map { |t| t.created_at.to_i }, weights.map(&:weight))
+    end
 
     g.minimum_value = g.minimum_value.to_i
 
@@ -62,8 +65,14 @@ class WeightsController < ApplicationController
     end
     g.labels = labels
 
-    send_data(g.to_blob, :disposition => 'inline', :type => 'image/png',
-              :filename => 'weights_chart.png')
+    send_data(g.to_blob, disposition: 'inline', type: 'image/png',
+        filename: 'weights_chart.png')
+  end
+
+  private
+
+  def weight_params
+    params.require(:weight).permit(:created_at, :weight)
   end
 
 end

@@ -1,22 +1,22 @@
 source 'https://rubygems.org'
 
-gem 'activerecord-jdbc-adapter', '~>1.2.9'
-gem 'activerecord-jdbcpostgresql-adapter', '~>1.2.9'
+gem 'rails', '~>4.1.8'
+
+gem 'activerecord-jdbcpostgresql-adapter'
+gem 'bootstrap-sass'
+gem 'coffee-rails'
 gem 'dynamic_form'
 gem 'gruff'
 gem 'jquery-rails'
-gem 'rails', '3.2.14'
-gem 'rmagick4j'
-gem 'schema_plus', '<1.0.0'
-gem 'trinidad'
-gem 'trinidad_daemon_extension'
+gem 'rmagick', platform: :ruby
+gem 'rmagick4j', platform: :jruby
+gem 'sass-rails'
+gem 'schema_plus'
+gem 'puma'
+gem 'therubyrhino'
+gem 'uglifier'
 gem 'will_paginate'
 
-group :assets do
-  gem 'bootstrap-sass'
-  gem 'coffee-rails'
-  gem 'sass-rails'
-  gem 'therubyrhino'
-  gem 'turbo-sprockets-rails3'
-  gem 'uglifier'
+group :test do
+  gem 'minitest-reporters'
 end
