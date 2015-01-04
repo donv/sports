@@ -3,11 +3,14 @@ source 'https://rubygems.org'
 gem 'rails', '~>4.1.8'
 
 gem 'activerecord-jdbcpostgresql-adapter'
+gem 'bootstrap-datepicker-rails'
+gem 'bootstrap3-datetimepicker-rails'
 gem 'bootstrap-sass'
 gem 'coffee-rails'
 gem 'dynamic_form'
 gem 'gruff'
 gem 'jquery-rails'
+gem 'momentjs-rails'
 gem 'rmagick', platform: :ruby
 gem 'rmagick4j', platform: :jruby
 gem 'sass-rails'

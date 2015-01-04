@@ -12,3 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap
+//= require moment
+//= require bootstrap-datepicker
+//= require bootstrap-datetimepicker
+
+$(document).ready(function () {
+    $('input.date').datepicker({format: "yyyy-mm-dd"});
+    // http://eonasdan.github.io/bootstrap-datetimepicker/
+    $('input.datetime').datetimepicker({format: "YYYY-MM-DD hh:mm"});
+})

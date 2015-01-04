@@ -1,7 +1,6 @@
 class WeightsController < ApplicationController
   def index
-    @weights = Weight.order('created_at DESC').
-        paginate(page: params[:page], per_page: 10)
+    @weights = Weight.order('created_at DESC').paginate(page: params[:page])
   end
 
   def show
