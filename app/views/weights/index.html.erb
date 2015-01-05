@@ -5,7 +5,7 @@
   <div class="col-md-6">
     <%= render partial: 'form' %>
 
-    <table class="table">
+    <table class="table table-condensed">
       <thead>
       <tr>
         <% for column in Weight.content_columns %>
@@ -19,9 +19,13 @@
           <tr>
             <td><%= weight.created_at.strftime('%Y-%m-%d') %></td>
             <td><%= weight.weight %></td>
-            <td><%= link_to 'Show', action: :show, id: weight %></td>
-            <td><%= link_to 'Edit', action: :edit, id: weight %></td>
-            <td><%= link_to 'Destroy', {action: :destroy, id: weight}, confirm: 'Are you sure?', method: :post %></td>
+            <td><%= link_to 'Show', {action: :show, id: weight},
+                    class: 'btn btn-default btn-xs' %>
+              <%= link_to 'Edit', {action: :edit, id: weight},
+                      class: 'btn btn-default btn-xs' %>
+              <%= link_to 'Destroy', {action: :destroy, id: weight},
+                      confirm: 'Are you sure?', method: :post,
+                      class: 'btn btn-default btn-xs' %></td>
           </tr>
       <% end %>
       </tbody>
@@ -31,7 +35,7 @@
 
   <div class="col-md-6 center">
     <%= link_to do %>
-        <%= image_tag url_for(controller: :weights, action: :graph, id: 1, format: 'png'), width: '100%' %>
+        <%= image_tag url_for(controller: :weights, action: :graph, id: 1, format: 'png'), width: '90%' %>
     <% end %>
   </div>
 
