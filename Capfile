@@ -40,11 +40,11 @@ before 'deploy:setup', 'rvm:install_ruby' # install Ruby and create gemset
 before 'deploy:spinner', 'deploy:reload_daemons'
 before 'deploy:restart', 'deploy:reload_daemons'
 
-task :symlinks do
-  run "#{try_sudo} rm -f /usr/lib/systemd/system/#{application}.service ; #{try_sudo} ln -s /u/apps/#{application}/current/usr/lib/systemd/system/#{application}.service /usr/lib/systemd/system/#{application}.service"
-end
-
 namespace :deploy do
+  task :symlinks do
+    run "#{try_sudo} rm -f /usr/lib/systemd/system/#{application}.service ; #{try_sudo} ln -s /u/apps/#{application}/current/usr/lib/systemd/system/#{application}.service /usr/lib/systemd/system/#{application}.service"
+  end
+
   task :reload_daemons do
     run "#{try_sudo} systemctl daemon-reload"
   end
