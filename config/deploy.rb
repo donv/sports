@@ -13,11 +13,11 @@ after 'deploy:update', 'deploy:cleanup'
 namespace :deploy do
   desc 'The spinner task is used by :cold_deploy to start the application up'
   task :spinner, roles: :app do
-    send(run_method, "/usr/bin/systemctl start #{application}")
+    run "#{try_sudo} /usr/bin/systemctl start #{application}"
   end
 
   desc 'Restart the service'
   task :restart, roles: :app do
-    send(run_method, "/usr/bin/systemctl restart #{application}")
+    run "#{try_sudo} /usr/bin/systemctl restart #{application}"
   end
 end
