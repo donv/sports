@@ -12,19 +12,17 @@ APP=sports
 RAILS_ENV=production
 PORT=3007
 RUN_AS_USER=capistrano
-pidfile=${PIDFILE-/u/apps/$APP/shared/log/server.pid}
+PIDFILE=/u/apps/$APP/shared/pids/server.pid
 APP_DIR="/u/apps/$APP/current"
 LOG_DIR="/u/apps/$APP/shared/log"
 
 START_CMD="cd $APP_DIR ;
-  export JAVA_HOME=/usr/java/default ;
-  export JRUBY_HOME=/usr/local/jruby ;
-  export PATH=\$JAVA_HOME/bin:\$JRUBY_HOME/bin:\$PATH ;
+  source \"$HOME/.rvm/scripts/rvm\" ; rvm use jruby ;
   export JRUBY_OPTS='-J-Xmx2G --server -J-Djava.awt.headless=true -J-Dawt.toolkit=sun.awt.HToolkit' ;
   jruby --version ;
-  jruby -S bundle exec trinidad -p $PORT -e $RAILS_ENV -t -ldaemon --daemonize $pidfile -d $APP_DIR 1>$LOG_DIR/stdout.log 2>$LOG_DIR/stderr.log
+  jruby -S bundle exec puma -d -t 0:20 -p $PORT -e $RAILS_ENV --pidfile $PIDFILE >$LOG_DIR/stdout.log 2>&1
 "
-STOP_CMD="kill `cat $pidfile`"
+STOP_CMD="kill `cat $PIDFILE`"
 
 USER=`whoami`
 
@@ -43,19 +41,19 @@ run() {
 # See how we were called.
 case "$1" in
   start)
-	if [ -f $pidfile ] && ! ps h `cat $pidfile` > /dev/null
+	if [ -f $PIDFILE ] && ! ps h `cat $PIDFILE` > /dev/null
 	then
-	    rm -f $pidfile
+	    rm -f $PIDFILE
 	fi
     run "$START_CMD"
         ;;
   stop)
     run "$STOP_CMD"
-    rm -f ${pidfile}
+    rm -f ${PIDFILE}
         ;;
   restart)
     run "$STOP_CMD"
-    rm -f ${pidfile}
+    rm -f ${PIDFILE}
     run "$START_CMD"
         ;;
   status)
