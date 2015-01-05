@@ -24,12 +24,13 @@ before 'deploy:create_symlink', :announce_maintenance
 after 'deploy:create_symlink', :announce_maintenance
 after 'deploy', :end_maintenance
 
-set :rvm_ruby_string, :jruby
+set :rvm_ruby_string, :ruby
 set :rvm_autolibs_flag, 'read-only'
 
 namespace :rvm do
   task :trust_keys, roles: [:app] do
-    run 'gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3'
+    run 'gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3',
+        shell: :bash
   end
 end
 
