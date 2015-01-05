@@ -59,8 +59,9 @@ class WeightsController < ApplicationController
     g.minimum_value = g.minimum_value.to_i
 
     labels = {}
-    weights.each do |w|
-      labels[w.created_at.to_date.midnight.to_i] = w.created_at.strftime('%Y-%m-%d')
+    years = weights.map(&:created_at).map(&:year).uniq
+    years.each do |y|
+      labels[Time.local(y).to_i] = y.to_s
     end
     g.labels = labels
 
