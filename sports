@@ -4,7 +4,7 @@
 #
 # chkconfig: 345 88 12
 # description: Sports web application
-# pidfile: /u/apps/$APP/shared/log/server.pid
+# pidfile: /u/apps/$APP/shared/pids/server.pid
 
 . /etc/rc.d/init.d/functions
 
@@ -57,11 +57,11 @@ case "$1" in
     run "$START_CMD"
         ;;
   status)
-        ps -ef | grep $APP
-        ;;
+    ps -ef | grep $APP | grep -e "grep|status"
+    ;;
   *)
-        echo "Usage: $prog {start|stop|restart|status}"
-        exit 1
+    echo "Usage: $prog {start|stop|restart|status}"
+    exit 1
 esac
 
 exit 0
