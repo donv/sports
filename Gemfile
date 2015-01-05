@@ -20,6 +20,12 @@ gem 'therubyrhino'
 gem 'uglifier'
 gem 'will_paginate'
 
+group :development do
+  # gem 'bullet'
+  gem 'capistrano', '<3.0.0'
+  gem 'rvm-capistrano'
+end
+
 group :test do
   gem 'minitest-reporters'
 end
