@@ -4,11 +4,13 @@ gem 'rails', '~>4.1.8'
 
 platform :jruby do
   gem 'activerecord-jdbcpostgresql-adapter'
+  gem 'rmagick4j'
   gem 'therubyrhino'
 end
 
 platform :ruby do
   gem 'pg'
+  gem 'rmagick'
   gem 'therubyracer'
 end
 
@@ -20,8 +22,6 @@ gem 'dynamic_form'
 gem 'gruff'
 gem 'jquery-rails'
 gem 'momentjs-rails'
-gem 'rmagick', platform: :ruby
-gem 'rmagick4j', platform: :jruby
 gem 'sass-rails'
 gem 'schema_plus'
 gem 'puma'
