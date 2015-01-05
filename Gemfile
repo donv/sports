@@ -4,10 +4,12 @@ gem 'rails', '~>4.1.8'
 
 platform :jruby do
   gem 'activerecord-jdbcpostgresql-adapter'
+  gem 'therubyrhino'
 end
 
 platform :ruby do
   gem 'pg'
+  gem 'therubyracer'
 end
 
 gem 'bootstrap-datepicker-rails'
@@ -23,7 +25,6 @@ gem 'rmagick4j', platform: :jruby
 gem 'sass-rails'
 gem 'schema_plus'
 gem 'puma'
-gem 'therubyrhino'
 gem 'uglifier'
 gem 'will_paginate'
 
