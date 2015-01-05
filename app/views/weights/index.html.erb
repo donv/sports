@@ -34,8 +34,8 @@
   <!-- left col -->
 
   <div class="col-md-6 text-center">
-    <%= link_to do %>
-        <%= image_tag url_for(controller: :weights, action: :graph, id: 1, format: 'png'), width: '95%' %>
+    <%= link_to action: :graph, id: 1, format: 'png' do %>
+        <%= image_tag url_for(action: :graph, id: 1, format: 'png'), width: '95%' %>
     <% end %>
   </div>
 
