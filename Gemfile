@@ -2,7 +2,14 @@ source 'https://rubygems.org'
 
 gem 'rails', '~>4.1.8'
 
-gem 'activerecord-jdbcpostgresql-adapter'
+platform :jruby do
+  gem 'activerecord-jdbcpostgresql-adapter'
+end
+
+platform :ruby do
+  gem 'pg'
+end
+
 gem 'bootstrap-datepicker-rails'
 gem 'bootstrap3-datetimepicker-rails'
 gem 'bootstrap-sass'

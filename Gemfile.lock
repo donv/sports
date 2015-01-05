@@ -57,6 +57,8 @@ GEM
     dynamic_form (1.1.4)
     erubis (2.7.0)
     execjs (2.2.2)
+    gruff (0.5.1)
+      rmagick
     gruff (0.5.1-java)
       rmagick4j
     highline (1.6.21)
@@ -66,6 +68,7 @@ GEM
     jquery-rails (3.1.2)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
+    json (1.8.1)
     json (1.8.1-java)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
@@ -86,6 +89,9 @@ GEM
     net-ssh (2.9.1)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
+    pg (0.18.0)
+    puma (2.10.2)
+      rack (>= 1.1, < 2.0)
     puma (2.10.2-java)
       rack (>= 1.1, < 2.0)
     rack (1.5.2)
@@ -107,6 +113,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
+    rmagick (2.13.4)
     rmagick4j (0.3.8)
     ruby-progressbar (1.7.1)
     rvm-capistrano (1.5.5)
@@ -134,6 +141,7 @@ GEM
       therubyrhino_jar (>= 1.7.3)
     therubyrhino_jar (1.7.4)
     thor (0.19.1)
+    thread_safe (0.3.4)
     thread_safe (0.3.4-java)
     tilt (1.4.1)
     tzinfo (1.2.2)
@@ -146,6 +154,7 @@ GEM
 
 PLATFORMS
   java
+  ruby
 
 DEPENDENCIES
   activerecord-jdbcpostgresql-adapter
@@ -159,6 +168,7 @@ DEPENDENCIES
   jquery-rails
   minitest-reporters
   momentjs-rails
+  pg
   puma
   rails (~> 4.1.8)
   rmagick
