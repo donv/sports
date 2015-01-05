@@ -1,8 +1,0 @@
-digraph G {
- center=1;
- rankdir=LR;
- ratio=compress;
- size="20, 20";
- edge [arrowtail=normal, arrowhead=none];
- "" [ label=" not found."];
-}
