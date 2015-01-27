@@ -9,8 +9,8 @@
 . /etc/rc.d/init.d/functions
 
 APP=sports
-RAILS_ENV=production
 PORT=3007
+RAILS_ENV=production
 RUN_AS_USER=capistrano
 PIDFILE=/u/apps/$APP/shared/pids/server.pid
 APP_DIR="/u/apps/$APP/current"
