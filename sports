@@ -9,59 +9,225 @@
 . /etc/rc.d/init.d/functions
 
 APP=sports
-PORT=3007
 RAILS_ENV=production
+PORT=3007
 RUN_AS_USER=capistrano
-PIDFILE=/u/apps/$APP/shared/pids/server.pid
+PID_FILE="/u/apps/$APP/shared/pids/server.pid"
 APP_DIR="/u/apps/$APP/current"
 LOG_DIR="/u/apps/$APP/shared/log"
-
-START_CMD="cd $APP_DIR ;
-  source \"$HOME/.rvm/scripts/rvm\" ; rvm use ruby ;
-  export JRUBY_OPTS='-J-Xmx2G --server -J-Djava.awt.headless=true -J-Dawt.toolkit=sun.awt.HToolkit' ;
-  ruby -v ;
-  ruby -S bundle exec puma -d -t 0:20 -p $PORT -e $RAILS_ENV --pidfile $PIDFILE >$LOG_DIR/stdout.log 2>&1
-"
-STOP_CMD="kill `cat $PIDFILE`"
+GC_OPTS="-J-verbose:gc -J-XX:+PrintGCTimeStamps -J-XX:+PrintGCDateStamps -J-Xloggc:${LOG_DIR}/gc.log"
+export JRUBY_OPTS="${GC_OPTS} -J-Xmx2G --server -J-Djava.awt.headless=true -J-Dawt.toolkit=sun.awt.HToolkit"
+START_CMD="bundle exec puma --dir $APP_DIR -e $RAILS_ENV -p $PORT -t 4:20 -d --pidfile $PID_FILE"
 
 USER=`whoami`
+if [ "$USER" != "$RUN_AS_USER" ]; then
+  echo Running as $USER.  Switching to $RUN_AS_USER...
+  su - $RUN_AS_USER -c "$0 $*"
+  exit $?
+fi
 
-run() {
-	cmd=$1
-	if [ "$USER" != "$RUN_AS_USER" ]; then
-		echo Running as $USER
-        echo su - $RUN_AS_USER -c \"$cmd\"
-        su - $RUN_AS_USER -c "$cmd"
-    else
-    	echo $cmd
-        eval $cmd
+source "$HOME/.rvm/scripts/rvm"
+cd $APP_DIR
+rvm use --install `cat .ruby-version`
+if [ -z "ruby" ] ; then
+  echo "Could not find ruby on your path."
+  exit 1
+fi
+ruby --version
+
+function start() {
+  if [[ -s $PID_FILE && -n "$(ps -A | grep "^[ \t]*$(< $PID_FILE)")" ]] ; then
+    PID=$(< $PID_FILE)
+    echo "$APP already running with pid $PID."
+    exit 1
+  fi
+  rm -f $PID_FILE
+
+  echo -n "Starting $APP"
+  setsid $START_CMD >$LOG_DIR/stdout.log 2>&1 &
+
+  PID="$!"
+
+  echo -n " (${PID}): "
+
+  for i in {1..60} ; do
+    if [[ -s $PID_FILE ]] ; then
+      PID=$(< $PID_FILE)
+      break
     fi
+    if (( i % 10 == 0 )) ; then
+      echo -n $i
+    else
+      echo -n .
+    fi
+    sleep 1
+  done
+
+  if [[ -s $PID_FILE ]] ; then
+    echo OK
+  else
+    echo FAILED
+    echo $PID > $PID_FILE
+    echo "Retrying..."
+    restart
+    exit $?
+  fi
+  echo "$APP started with pid=$PID"
+
+  for j in {1..60} ; do
+    if (exec >/dev/null 2>&1 6<>/dev/tcp/127.0.0.1/$PORT) ; then
+      server_responded=1
+      break
+    fi
+    if (( j == 1 )) ; then
+      echo -n 'Waiting for server to respond...'
+    else
+      echo -n .
+    fi
+    if (( j > 3 )) ; then
+      if (( j % 10 == 0 )) ; then
+        echo -n $j
+      else
+        echo -n .
+      fi
+    fi
+    sleep 1
+  done
+  if [[ "$server_responded" == 1 ]]; then
+    echo OK
+  else
+    echo FAILED
+  fi
 }
 
-# See how we were called.
-case "$1" in
-  start)
-	if [ -f $PIDFILE ] && ! ps h `cat $PIDFILE` > /dev/null
-	then
-	    rm -f $PIDFILE
-	fi
-    run "$START_CMD"
-        ;;
-  stop)
-    run "$STOP_CMD"
-    rm -f ${PIDFILE}
-        ;;
-  restart)
-    run "$STOP_CMD"
-    rm -f ${PIDFILE}
-    run "$START_CMD"
-        ;;
-  status)
-    ps -ef | grep $APP | grep -e "grep|status"
-    ;;
-  *)
-    echo "Usage: $prog {start|stop|restart|status}"
-    exit 1
-esac
+function stop() {
+  if [[ ! -s "$PID_FILE" ]]; then
+    echo "$APP is not currently running."
+  elif [[ -z "$(ps -A | grep "^[ \t]*$(< $PID_FILE)")" ]] ; then
+    echo "$APP $(< $PID_FILE) is dead!"
+  else
+    PID=$(< $PID_FILE)
+    if [ -z "$FORCE" ] ; then
+      PGID=`ps x -o  "%p %r %y %x %c " | grep $PID | awk '{print $2}'`
+      echo "Sending TERM signal to $APP $PID via process group $PGID"
+      kill -TERM -$PGID
+    else
+      PGID=`ps x -o  "%p %r %y %x %c " | grep $PID | awk '{print $2}'`
+      echo "Sending KILL signal to $APP $PID via process group $PGID"
+      kill -KILL -$PGID
+    fi
 
-exit 0
+    echo -n "Wait for process $PID to stop..."
+    for i in {1..10} ; do
+      kill -0 -$PGID >/dev/null 2>&1
+      if [ $? != 0 ] ; then
+        rm -f $PID_FILE
+        break
+      fi
+      if (( j > 3 )) ; then
+        echo -n .
+      fi
+      sleep 1
+    done
+    kill -0 -$PGID >/dev/null 2>&1
+    if [ $? == 0 ] ; then
+      echo "FAILED!"
+      PGID=`ps x -o  "%p %r %y %x %c " | grep $PID | awk '{print $2}'`
+      echo "Sending KILL signal to $APP $PID via process group $PGID"
+      kill -KILL -$PGID
+    else
+      echo "OK"
+    fi
+  fi
+}
+
+function restart() {
+  stop
+  start
+}
+
+function run() {
+  exec $JRUBY_CMD $START_CMD "$@"
+}
+
+function zap() {
+  echo "Resetting to stopped state."
+  [ -f $PID_FILE ] && rm $PID_FILE
+}
+
+function status() {
+  if [ -f $PID_FILE ] ; then
+    PID=`cat $PID_FILE`
+    kill -0 $PID >/dev/null 2>&1
+    running_status=$?
+    if [ $running_status == 0 ] ; then
+      echo $APP is running as $PID
+    else
+      echo $APP $PID is dead!
+    fi
+  else
+    echo $APP is stopped.
+  fi
+}
+
+function usage() {
+  cat <<EOF
+Usage: $0 <command> <options> -- <application options>
+
+* where <command> is one of:
+  start         start an instance of the application
+  stop          stop all instances of the application
+  restart       stop all instances and restart them afterwards
+  run           start the application and stay on top
+  zap           set the application to a stopped state
+
+* and where <options> may contain several of the following:
+
+    -t, --ontop                      Stay on top (does not daemonize)
+    -f, --force                      Force operation
+EOF
+
+}
+
+CMD=$1
+shift
+
+for i in "1" "2" ; do
+  case "$1" in
+    "-f"|"--force")
+      FORCE="true"
+      shift
+    ;;
+    "-t"|"--ontop")
+      ONTOP="true"
+      shift
+    ;;
+  esac
+done
+
+[ "$1" == "--" ] && shift
+
+case "$CMD" in
+  "start")
+    start
+    ;;
+  "stop")
+	stop
+    ;;
+  "run")
+    run
+    ;;
+  "restart")
+    restart
+    ;;
+  "zap")
+    zap
+  ;;
+  "status")
+    status
+  ;;
+  "usage"|*)
+    usage
+    exit 1
+    ;;
+esac
