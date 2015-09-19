@@ -12,12 +12,12 @@ class ToursController < ApplicationController
     g.font = '/usr/share/fonts/bitstream-vera/Vera.ttf'
     g.legend_font_size = 14
     g.hide_dots = true
-    #g.colors = %w{blue orange green grey grey lightblue #d7a790}
+    # g.colors = %w{blue orange green grey grey lightblue #d7a790}
 
     tours = Tour.order(:started_at).to_a
 
     g.data(t(:time), tours.map { |t| t.total_time.min + t.total_time.sec / 60 })
-    g.data(t(:distance), tours.map { |t| t.distance })
+    g.data(t(:distance), tours.map(&:distance))
 
     g.minimum_value = 0
 
@@ -36,5 +36,4 @@ class ToursController < ApplicationController
         type: 'image/png',
         filename: 'tours_chart.png')
   end
-
 end

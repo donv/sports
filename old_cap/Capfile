@@ -1,7 +1,7 @@
 load 'deploy'
 load 'deploy/assets'
 
-set :default_environment, {'JRUBY_OPTS' => '--dev'}
+set :default_environment, { 'JRUBY_OPTS' => '--dev' }
 # set :migrate_env, 'JRUBY_OPTS="--dev -J-Xmx3G"'
 default_run_options[:pty] = true
 

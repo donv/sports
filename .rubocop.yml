@@ -1,0 +1,68 @@
+# Offense count: 4
+Metrics/AbcSize:
+  Max: 33
+
+# Offense count: 37
+# Configuration parameters: AllowURI, URISchemes.
+Metrics/LineLength:
+  Max: 218
+
+# Offense count: 3
+# Configuration parameters: CountComments.
+Metrics/MethodLength:
+  Max: 20
+
+# Offense count: 1
+Style/AccessorMethodName:
+  Exclude:
+    - 'lib/authenticated_system.rb'
+
+# Offense count: 1
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedHashRocketStyle, EnforcedColonStyle, EnforcedLastArgumentHashStyle, SupportedLastArgumentHashStyles.
+Style/AlignHash:
+  Exclude:
+    - 'app/controllers/weights_controller.rb'
+
+# Offense count: 1
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/AlignParameters:
+  Exclude:
+    - 'app/controllers/tours_controller.rb'
+
+# Offense count: 2
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles, ProceduralMethods, FunctionalMethods, IgnoredMethods.
+Style/BlockDelimiters:
+  Enabled: false
+
+# Offense count: 2
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/BracesAroundHashParameters:
+  Exclude:
+    - 'config/deploy.rb'
+    - 'old_cap/Capfile'
+
+# Offense count: 1
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/ClassAndModuleChildren:
+  Exclude:
+    - 'test/test_helper.rb'
+
+# Offense count: 1
+Style/ClassVars:
+  Exclude:
+    - 'lib/authenticated_system.rb'
+
+# Offense count: 27
+Style/Documentation:
+  Enabled: false
+
+# Offense count: 3
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/IndentationConsistency:
+  Exclude:
+    - 'lib/authenticated_test_helper.rb'

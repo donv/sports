@@ -75,5 +75,4 @@ class WeightsController < ApplicationController
   def weight_params
     params.require(:weight).permit(:created_at, :weight)
   end
-
 end

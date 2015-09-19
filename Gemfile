@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~>4.1.8'
+gem 'rails', '~>4.2.4'
 
 platform :jruby do
   gem 'activerecord-jdbcpostgresql-adapter'
@@ -39,4 +39,6 @@ end
 
 group :test do
   gem 'minitest-reporters'
+  gem 'rubocop'
+  gem 'simplecov'
 end

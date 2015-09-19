@@ -12,41 +12,39 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 4) do
-
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "routes", force: true do |t|
-    t.string "name", limit: 64, null: false
+  create_table 'routes', force: true do |t|
+    t.string 'name', limit: 64, null: false
   end
 
-  create_table "tours", force: true do |t|
-    t.datetime "started_at",                            null: false
-    t.time     "total_time",                            null: false
-    t.decimal  "distance",      precision: 6, scale: 2, null: false
-    t.decimal  "average_speed", precision: 4, scale: 1, null: false
-    t.decimal  "max_speed",     precision: 4, scale: 1, null: false
-    t.decimal  "calories",      precision: 5, scale: 1, null: false
-    t.decimal  "odo",           precision: 7, scale: 1, null: false
-    t.integer  "route_id",                              null: false
-    t.index ["route_id"], :name => "fk__tours_route_id"
-    t.foreign_key ["route_id"], "routes", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_tours_route_id"
+  create_table 'tours', force: true do |t|
+    t.datetime 'started_at', null: false
+    t.time 'total_time',                            null: false
+    t.decimal 'distance',      precision: 6, scale: 2, null: false
+    t.decimal 'average_speed', precision: 4, scale: 1, null: false
+    t.decimal 'max_speed',     precision: 4, scale: 1, null: false
+    t.decimal 'calories',      precision: 5, scale: 1, null: false
+    t.decimal 'odo',           precision: 7, scale: 1, null: false
+    t.integer 'route_id',                              null: false
+    t.index ['route_id'], name: 'fk__tours_route_id'
+    t.foreign_key ['route_id'], 'routes', ['id'], on_update: :no_action, on_delete: :no_action, name: 'fk_tours_route_id'
   end
 
-  create_table "users", force: true do |t|
-    t.string   "login"
-    t.string   "email"
-    t.string   "crypted_password",          limit: 40
-    t.string   "salt",                      limit: 40
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "remember_token"
-    t.datetime "remember_token_expires_at"
+  create_table 'users', force: true do |t|
+    t.string 'login'
+    t.string 'email'
+    t.string 'crypted_password',          limit: 40
+    t.string 'salt',                      limit: 40
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
+    t.string 'remember_token'
+    t.datetime 'remember_token_expires_at'
   end
 
-  create_table "weights", force: true do |t|
-    t.datetime "created_at",                         null: false
-    t.decimal  "weight",     precision: 4, scale: 1, null: false
+  create_table 'weights', force: true do |t|
+    t.datetime 'created_at', null: false
+    t.decimal 'weight', precision: 4, scale: 1, null: false
   end
-
 end

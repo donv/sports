@@ -1,10 +1,10 @@
 class CreateRoutes < ActiveRecord::Migration
   def self.up
     create_table :routes do |t|
-      t.column :name, :string, :limit => 64, :null => false 
+      t.column :name, :string, limit: 64, null: false
     end
-    route = Route.create! :name => 'Default Route'
-    add_column :tours, :route_id, :integer, :null => false, :default => route.id
+    route = Route.create! name: 'Default Route'
+    add_column :tours, :route_id, :integer, null: false, default: route.id
     Tour.update_all "route_id = #{route.id}"
     change_column_default :tours, :route_id, nil
   end
@@ -13,11 +13,11 @@ class CreateRoutes < ActiveRecord::Migration
     remove_column :tours, :route_id
     drop_table :routes
   end
-  
+
   class Route < ActiveRecord::Base
     has_many :tours
   end
-  
+
   class Tour < ActiveRecord::Base
     belongs_to :route
   end
