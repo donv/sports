@@ -30,8 +30,11 @@ gem 'will_paginate'
 
 group :development do
   # gem 'bullet'
-  gem 'capistrano', '<3.0.0'
-  gem 'rvm-capistrano'
+  gem 'capistrano'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano-rvm'
+  gem 'capistrano-scm-copy'
 end
 
 group :test do

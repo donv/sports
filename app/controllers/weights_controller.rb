@@ -51,6 +51,7 @@ class WeightsController < ApplicationController
     g.title = t(:weight).capitalize
     g.hide_legend = true
     g.hide_dots = true if weights.size > 25
+    g.baseline_value = 100
 
     if weights.any?
       g.dataxy(t(:weight), weights.map { |t| t.created_at.to_i }, weights.map(&:weight))
