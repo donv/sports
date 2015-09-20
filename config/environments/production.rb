@@ -9,14 +9,14 @@ Rails.application.configure do
   # config.assets.css_compressor = :sass
   config.assets.digest = true
   config.assets.js_compressor = :uglifier
-  # config.force_ssl = true
-  config.log_level = :info
-  # config.log_tags = [ :subdomain, :uuid ]
-  # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
   config.cache_classes = true
   config.consider_all_requests_local = false
   config.eager_load = true
+  # config.force_ssl = true
   config.i18n.fallbacks = true
   config.log_formatter = ::Logger::Formatter.new
+  config.log_level = :debug
+  # config.log_tags = [ :subdomain, :uuid ]
+  # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
   config.serve_static_files = ENV['RAILS_SERVE_STATIC_FILES'].present?
 end
