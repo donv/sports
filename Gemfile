@@ -34,7 +34,6 @@ group :development do
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
   gem 'capistrano-rvm'
-  gem 'capistrano-scm-copy'
 end
 
 group :test do
