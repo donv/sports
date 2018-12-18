@@ -3,6 +3,6 @@ if Rails.env.test?
   RuboCop::RakeTask.new
 
   task :test do
-    Rake::Task[:rubocop].invoke
+    Rake::Task['rubocop:auto_correct'].invoke
   end
 end

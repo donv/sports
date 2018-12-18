@@ -1,3 +1,5 @@
+inherit_from: .rubocop_todo.yml
+
 # Offense count: 4
 Metrics/AbcSize:
   Max: 33
