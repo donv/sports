@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby File.read("#{__dir__}/.ruby-version")[5..-1]
+
 gem 'rails', '~>4.2.4'
 
 platform :jruby do
