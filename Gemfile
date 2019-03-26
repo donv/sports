@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby File.read("#{__dir__}/.ruby-version")[5..-1]
 
-gem 'rails', '~>4.2.4'
+gem 'rails', '~>5.0.0'
 
 platform :jruby do
   gem 'activerecord-jdbcpostgresql-adapter'
@@ -25,8 +25,8 @@ gem 'gruff'
 gem 'jquery-rails'
 gem 'momentjs-rails'
 gem 'sass-rails'
-gem 'schema_plus'
 gem 'puma'
+gem 'rails-controller-testing'
 gem 'uglifier'
 gem 'will_paginate'
 

@@ -4,6 +4,10 @@ inherit_from: .rubocop_todo.yml
 Metrics/AbcSize:
   Max: 33
 
+Metrics/BlockLength:
+  Exclude:
+    - 'db/schema.rb'
+
 # Offense count: 37
 # Configuration parameters: AllowURI, URISchemes.
 Metrics/LineLength:
