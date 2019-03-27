@@ -1,12 +1,17 @@
 Rails.application.routes.draw do
-  get ':controller/graph(.:format)', action: :graph
-
   resources :routes
-  resources :tours
-  resources :weights
+  resources :tours do
+    collection do
+      get :graph
+      get :graph_small
+    end
+  end
+  resources :weights do
+    collection do
+      get :graph
+      get :graph_small
+    end
+  end
 
   root to: 'weights#index'
-
-  get ':controller(/:action(/:id))(.:format)'
-  get ':controller/:action/:id.:format'
 end

@@ -14,7 +14,7 @@ class WeightsControllerTest < ActionController::TestCase
   end
 
   def test_show
-    get :show, id: @first_id
+    get :show, params: {id: @first_id}
 
     assert_response :success
     assert_template 'show'
@@ -44,7 +44,7 @@ class WeightsControllerTest < ActionController::TestCase
 
   def test_create
     assert_difference 'Weight.count' do
-      post :create, weight: { weight: 109.9 }
+      post :create, params: {weight: { weight: 109.9 }}
     end
 
     assert_response :redirect
@@ -52,13 +52,13 @@ class WeightsControllerTest < ActionController::TestCase
   end
 
   def test_create_invalid
-    assert_no_difference('Weight.count') { post :create, weight: { weight: 49.9 } }
+    assert_no_difference('Weight.count') { post :create, params: {weight: { weight: 49.9 } }}
     assert_response :success
     assert_template :new
   end
 
   def test_edit
-    get :edit, id: @first_id
+    get :edit, params: {id: @first_id}
 
     assert_response :success
     assert_template 'edit'
@@ -68,13 +68,13 @@ class WeightsControllerTest < ActionController::TestCase
   end
 
   def test_update
-    post :update, id: @first_id, weight: { weight: 99.9 }
+    post :update, params: {id: @first_id, weight: { weight: 99.9 }}
     assert_response :redirect
     assert_redirected_to action: :show, id: @first_id
   end
 
   def test_update_invalid
-    post :update, id: @first_id, weight: { weight: 49.9 }
+    post :update, params: {id: @first_id, weight: { weight: 49.9 }}
     assert_response :success
     assert_template :edit
   end
@@ -84,7 +84,7 @@ class WeightsControllerTest < ActionController::TestCase
       Weight.find(@first_id)
     }
 
-    post :destroy, id: @first_id
+    post :destroy, params: {id: @first_id}
     assert_response :redirect
     assert_redirected_to action: :index
 
