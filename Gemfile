@@ -2,19 +2,8 @@ source 'https://rubygems.org'
 
 ruby File.read("#{__dir__}/.ruby-version")[5..-1]
 
-gem 'rails', '~>5.0.0'
+gem 'rails', '~>5.1.0'
 
-platform :jruby do
-  gem 'activerecord-jdbcpostgresql-adapter'
-  gem 'rmagick4j'
-  gem 'therubyrhino'
-end
-
-platform :ruby do
-  gem 'pg'
-  gem 'rmagick'
-  gem 'therubyracer'
-end
 
 gem 'bootstrap-datepicker-rails'
 gem 'bootstrap3-datetimepicker-rails'
@@ -24,9 +13,12 @@ gem 'dynamic_form'
 gem 'gruff'
 gem 'jquery-rails'
 gem 'momentjs-rails'
+gem 'pg'
+gem 'rmagick'
 gem 'sass-rails'
 gem 'puma'
 gem 'rails-controller-testing'
+gem 'mini_racer'
 gem 'uglifier'
 gem 'will_paginate'
 
