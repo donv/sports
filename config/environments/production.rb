@@ -11,6 +11,7 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "sports_#{Rails.env}"
   config.active_record.dump_schema_after_migration = false
+  config.active_storage.service = :local
   config.active_support.deprecation = :notify
   config.assets.compile = false
   # config.assets.css_compressor = :sass
@@ -26,7 +27,7 @@ Rails.application.configure do
   config.log_tags = [:request_id]
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
-  config.read_encrypted_secrets = true
+  # config.require_master_key = true
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger = ActiveSupport::Logger.new(STDOUT)

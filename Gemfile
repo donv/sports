@@ -2,9 +2,10 @@ source 'https://rubygems.org'
 
 ruby File.read("#{__dir__}/.ruby-version")[5..-1]
 
-gem 'rails', '~>5.1.0'
+gem 'rails', '~>5.2.0'
 
 
+gem 'bootsnap'
 gem 'bootstrap-datepicker-rails'
 gem 'bootstrap3-datetimepicker-rails'
 gem 'bootstrap-sass'
