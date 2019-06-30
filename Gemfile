@@ -1,39 +1,15 @@
 source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby File.read("#{__dir__}/.ruby-version")[5..-1]
+# Declare your gem's dependencies in sports.gemspec.
+# Bundler will treat runtime dependencies like base dependencies, and
+# development dependencies will be added by default to the :development group.
+gemspec
 
-gem 'rails', '~>5.2.0'
+# Declare any dependencies that are still in development here instead of in
+# your gemspec. These might include edge Rails or gems from your path or
+# Git. Remember to move these dependencies to your gemspec before releasing
+# your gem to rubygems.org.
 
-
-gem 'bootsnap'
-gem 'bootstrap-datepicker-rails'
-gem 'bootstrap3-datetimepicker-rails'
-gem 'bootstrap-sass'
-gem 'coffee-rails'
-gem 'dynamic_form'
-gem 'gruff'
-gem 'jquery-rails'
-gem 'momentjs-rails'
-gem 'pg'
-gem 'rmagick'
-gem 'sass-rails'
-gem 'puma'
-gem 'rails-controller-testing'
-gem 'mini_racer'
-gem 'uglifier'
-gem 'will_paginate'
-
-group :development do
-  # gem 'bullet'
-  gem 'capistrano'
-  gem 'capistrano-bundler'
-  gem 'capistrano-rails'
-  gem 'capistrano-rvm'
-  gem 'listen'
-end
-
-group :test do
-  gem 'minitest-reporters'
-  gem 'rubocop'
-  gem 'simplecov'
-end
+# To use a debugger
+# gem 'byebug', group: [:development, :test]

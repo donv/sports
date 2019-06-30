@@ -1,4 +1,4 @@
-class CreateRoutes < ActiveRecord::Migration
+class CreateRoutes < ActiveRecord::Migration[4.2]
   def self.up
     create_table :routes do |t|
       t.column :name, :string, limit: 64, null: false

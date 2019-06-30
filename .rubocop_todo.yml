@@ -36,7 +36,7 @@ Layout/EmptyLines:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, IndentationWidth.
 # SupportedStyles: special_inside_parentheses, consistent, align_braces
-Layout/IndentHash:
+Layout/IndentFirstHashElement:
   Exclude:
     - 'config/environments/test.rb'
 

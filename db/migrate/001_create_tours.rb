@@ -1,4 +1,4 @@
-class CreateTours < ActiveRecord::Migration
+class CreateTours < ActiveRecord::Migration[4.2]
   def self.up
     create_table :tours do |t|
       t.column :started_at, :datetime, null: false

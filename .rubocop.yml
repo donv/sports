@@ -19,21 +19,21 @@ Metrics/MethodLength:
   Max: 20
 
 # Offense count: 1
-Style/AccessorMethodName:
+Naming/AccessorMethodName:
   Exclude:
     - 'lib/authenticated_system.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedHashRocketStyle, EnforcedColonStyle, EnforcedLastArgumentHashStyle, SupportedLastArgumentHashStyles.
-Style/AlignHash:
+Layout/AlignHash:
   Exclude:
     - 'app/controllers/weights_controller.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/AlignParameters:
+Layout/AlignParameters:
   Exclude:
     - 'app/controllers/tours_controller.rb'
 
@@ -69,6 +69,6 @@ Style/Documentation:
 # Offense count: 3
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/IndentationConsistency:
+Layout/IndentationConsistency:
   Exclude:
     - 'lib/authenticated_test_helper.rb'

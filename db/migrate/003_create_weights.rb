@@ -1,4 +1,4 @@
-class CreateWeights < ActiveRecord::Migration
+class CreateWeights < ActiveRecord::Migration[4.2]
   def self.up
     create_table :weights do |t|
       t.column :created_at, :timestamp, null: false

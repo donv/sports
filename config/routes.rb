@@ -1,4 +1,4 @@
-Rails.application.routes.draw do
+Sports::Engine.routes.draw do
   resources :routes
   resources :tours do
     collection do
