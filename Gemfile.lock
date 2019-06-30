@@ -15,7 +15,6 @@ PATH
       pg
       puma
       rails (~> 5.2)
-      rails-controller-testing
       rmagick
       sass-rails
       uglifier
@@ -199,7 +198,7 @@ GEM
     rb-inotify (0.10.0)
       ffi (~> 1.0)
     rmagick (2.16.0)
-    rubocop (0.70.0)
+    rubocop (0.71.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.6)
@@ -263,6 +262,7 @@ DEPENDENCIES
   capistrano-rvm
   listen
   minitest-reporters
+  rails-controller-testing
   rubocop
   simplecov
   sports!
