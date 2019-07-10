@@ -1,4 +1,10 @@
 module AuthenticatedSystem
+  # Inclusion hook to make #current_user and #logged_in?
+  # available as ActionView helper methods.
+  def self.included(base)
+    base.send :helper_method, :current_user, :logged_in?
+  end
+
   protected
 
   # Returns true or false if the user is logged in.
@@ -89,12 +95,6 @@ module AuthenticatedSystem
   def redirect_back_or_default(default)
     session[:return_to] ? redirect_to_url(session[:return_to]) : redirect_to(default)
     session[:return_to] = nil
-  end
-
-  # Inclusion hook to make #current_user and #logged_in?
-  # available as ActionView helper methods.
-  def self.included(base)
-    base.send :helper_method, :current_user, :logged_in?
   end
 
   # When called with before_filter :login_from_cookie will check for an :auth_token

@@ -82,7 +82,7 @@ class BaseLoginProxy
     fail NotImplementedError
   end
 
-  def method_missing(method, *args)
+  def method_missing(method, *args) # rubocop: disable Style/MethodMissingSuper, Style/MissingRespondToMissing, Style/CommentedKeyword
     @controller.reset!
     authenticate
     @controller.send(method, *args)
