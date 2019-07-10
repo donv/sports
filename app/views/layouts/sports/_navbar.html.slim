@@ -1,0 +1,20 @@
+nav.navbar.navbar-default
+  .container-fluid
+    / Brand and toggle get grouped for better mobile display
+    .navbar-header
+      button.navbar-toggle.collapsed type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+        span class="sr-only" Toggle navigation
+        span class="icon-bar"
+        span class="icon-bar"
+        span class="icon-bar"
+      a.navbar-brand href="/" Kubosch Sports
+
+    / Collect the nav links, forms, and other content for toggling
+    #bs-example-navbar-collapse-1.collapse.navbar-collapse
+      ul.nav.navbar-nav.navbar-right
+        li class=(:active if controller.controller_name == 'weights')
+          a href="/weights"
+            ' Weights
+            span.sr-only (current)
+        li: a href="/routes" Routes
+        li: a href="/tours" Tours
