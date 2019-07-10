@@ -33,9 +33,9 @@ module Sports
       g.maximum_value = g.maximum_value.to_i
 
       send_data(g.to_blob,
-          disposition: 'inline',
-          type: 'image/png',
-          filename: 'tours_chart.png')
+                disposition: 'inline',
+                type: 'image/png',
+                filename: 'tours_chart.png')
     end
   end
 end

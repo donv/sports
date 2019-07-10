@@ -8,13 +8,13 @@ require 'rdoc/task'
 
 RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title    = 'Sports'
+  rdoc.title = 'Sports'
   rdoc.options << '--line-numbers'
   rdoc.rdoc_files.include('README.md')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
-APP_RAKEFILE = File.expand_path("test/dummy/Rakefile", __dir__)
+APP_RAKEFILE = File.expand_path('test/dummy/Rakefile', __dir__)
 load 'rails/tasks/engine.rake'
 
 load 'rails/tasks/statistics.rake'
@@ -31,11 +31,14 @@ end
 
 task default: :test
 
-if Rails.env.test?
+if Rails.env.test? || Rails.env.development?
   require 'rubocop/rake_task'
   RuboCop::RakeTask.new
 
-  task :test do
-    Rake::Task['rubocop:auto_correct'].invoke
+  namespace :test do
+    task :full do
+      Rake::Task['rubocop:auto_correct'].invoke
+      Rake::Task['test'].invoke
+    end
   end
 end
