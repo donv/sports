@@ -101,8 +101,10 @@ module AuthenticatedSystem
   # cookie and log the user back in if apropriate
   def login_from_cookie
     return unless cookies[:auth_token] && !logged_in?
+
     user = User.find_by_remember_token(cookies[:auth_token])
     return unless user && user.remember_token?
+
     user.remember_me
     self.current_user = user
     cookies[:auth_token] = { value: self.current_user.remember_token, expires: self.current_user.remember_token_expires_at }
