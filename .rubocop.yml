@@ -1,5 +1,11 @@
 inherit_from: .rubocop_todo.yml
 
+Metrics/BlockLength:
+  Exclude:
+    - sports.gemspec
+    - db/schema.rb
+    - test/dummy/db/schema.rb
+
 Metrics/LineLength:
   IgnoreCopDirectives: true
   Max: 107
