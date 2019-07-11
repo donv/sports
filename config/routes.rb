@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Sports::Engine.routes.draw do
   resources :routes
   resources :tours do

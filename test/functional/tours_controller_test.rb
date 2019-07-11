@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'integration_test'
 
 module Sports

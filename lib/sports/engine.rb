@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'momentjs-rails'
 require 'bootstrap-datepicker-rails'
 require 'bootstrap3-datetimepicker-rails'

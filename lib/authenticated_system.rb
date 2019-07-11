@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AuthenticatedSystem
   # Inclusion hook to make #current_user and #logged_in?
   # available as ActionView helper methods.

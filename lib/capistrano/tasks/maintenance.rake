@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 desc 'Announce maintenance'
 task :announce_maintenance do
   on roles :all do
