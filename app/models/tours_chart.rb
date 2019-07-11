@@ -8,7 +8,6 @@ module ToursChart
     g.font = '/usr/share/fonts/bitstream-vera/Vera.ttf'
     g.legend_font_size = 14
     g.hide_dots = true
-    # g.colors = %w{blue orange green grey grey lightblue #d7a790}
 
     tours = Tour.order(:started_at).to_a
 
@@ -17,15 +16,17 @@ module ToursChart
 
     g.minimum_value = 0
 
+    g.labels = labels(tours)
+
+    g.maximum_value = g.maximum_value.to_i
+    g
+  end
+
+  def self.labels(tours)
     labels = {}
     tours.each_with_index do |t, i|
       labels[i] = t.started_at.strftime('%y-%m-%d')
     end
-    g.labels = labels
-
-    # g.draw_vertical_legend
-
-    g.maximum_value = g.maximum_value.to_i
-    g
+    labels
   end
 end
