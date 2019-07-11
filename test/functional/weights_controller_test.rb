@@ -82,17 +82,13 @@ module Sports
     end
 
     def test_destroy
-      assert_nothing_raised {
-        Weight.find(@first_id)
-      }
+      assert_nothing_raised { Weight.find(@first_id) }
 
       delete weight_path(@first_id)
       assert_response :redirect
       assert_redirected_to action: :index
 
-      assert_raise(ActiveRecord::RecordNotFound) {
-        Weight.find(@first_id)
-      }
+      assert_raise(ActiveRecord::RecordNotFound) { Weight.find(@first_id) }
     end
   end
 end

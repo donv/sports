@@ -22,22 +22,6 @@ Metrics/MethodLength:
   Max: 20
 
 # Offense count: 1
-Naming/AccessorMethodName:
-  Exclude:
-    - 'lib/authenticated_system.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, ProceduralMethods, FunctionalMethods, IgnoredMethods, AllowBracesOnProceduralOneLiners.
-# SupportedStyles: line_count_based, semantic, braces_for_chaining, always_braces
-# ProceduralMethods: benchmark, bm, bmbm, create, each_with_object, measure, new, realtime, tap, with_object
-# FunctionalMethods: let, let!, subject, watch
-# IgnoredMethods: lambda, proc, it
-Style/BlockDelimiters:
-  Exclude:
-    - 'test/functional/weights_controller_test.rb'
-
-# Offense count: 1
 Style/ClassVars:
   Exclude:
     - 'lib/authenticated_system.rb'
