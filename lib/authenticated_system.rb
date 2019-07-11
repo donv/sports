@@ -113,10 +113,10 @@ module AuthenticatedSystem
 
   private
 
-  @@http_auth_headers = %w[X-HTTP_AUTHORIZATION HTTP_AUTHORIZATION Authorization]
+  HTTP_AUTH_HEADERS = %w[X-HTTP_AUTHORIZATION HTTP_AUTHORIZATION Authorization].freeze
   # gets BASIC auth info
   def auth_data
-    auth_key  = @@http_auth_headers.detect { |h| request.env.key?(h) }
+    auth_key  = HTTP_AUTH_HEADERS.detect { |h| request.env.key?(h) }
     auth_data = request.env[auth_key].to_s.split unless auth_key.blank?
     auth_data && auth_data[0] == 'Basic' ? Base64.decode64(auth_data[1]).split(':')[0..1] : [nil, nil]
   end
