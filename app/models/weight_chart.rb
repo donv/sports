@@ -12,12 +12,16 @@ module WeightChart
 
     g.minimum_value = g.minimum_value.to_i
 
+    g.labels = labels(weights)
+    g
+  end
+
+  def self.labels(weights)
     labels = {}
     years = weights.map(&:created_at).map(&:year).uniq
     years.each do |y|
       labels[Time.local(y).to_i] = y.to_s
     end
-    g.labels = labels
-    g
+    labels
   end
 end
