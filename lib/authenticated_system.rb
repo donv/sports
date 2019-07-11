@@ -113,7 +113,7 @@ module AuthenticatedSystem
 
   private
 
-  @@http_auth_headers = %w(X-HTTP_AUTHORIZATION HTTP_AUTHORIZATION Authorization)
+  @@http_auth_headers = %w[X-HTTP_AUTHORIZATION HTTP_AUTHORIZATION Authorization]
   # gets BASIC auth info
   def get_auth_data
     auth_key  = @@http_auth_headers.detect { |h| request.env.key?(h) }

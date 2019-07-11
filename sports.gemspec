@@ -45,10 +45,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'will_paginate'
 
   spec.add_development_dependency 'bullet'
-  spec.add_development_dependency 'capistrano'
-  spec.add_development_dependency 'capistrano-bundler'
-  spec.add_development_dependency 'capistrano-rails'
-  spec.add_development_dependency 'capistrano-rvm'
   spec.add_development_dependency 'listen'
   spec.add_development_dependency 'minitest-reporters'
   spec.add_development_dependency 'rails-controller-testing'
