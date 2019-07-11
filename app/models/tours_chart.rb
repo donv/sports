@@ -11,8 +11,7 @@ module ToursChart
 
     tours = Tour.order(:started_at).to_a
 
-    g.data(I18n.t(:time), tours.map { |t| t.total_time.min + t.total_time.sec / 60 })
-    g.data(I18n.t(:distance), tours.map(&:distance))
+    populate_data(g, tours)
 
     g.minimum_value = 0
 
@@ -28,5 +27,10 @@ module ToursChart
       labels[i] = t.started_at.strftime('%y-%m-%d')
     end
     labels
+  end
+
+  def self.populate_data(gruff, tours)
+    gruff.data(I18n.t(:time), tours.map { |t| t.total_time.min + t.total_time.sec / 60 })
+    gruff.data(I18n.t(:distance), tours.map(&:distance))
   end
 end
