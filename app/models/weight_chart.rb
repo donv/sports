@@ -8,7 +8,7 @@ module WeightChart
     g.hide_dots = true if weights.size > 25
     g.baseline_value = 100
 
-    g.dataxy(I18n.t(:weight), weights.map { |t| t.created_at.to_i }, weights.map(&:weight)) if weights.any?
+    populate_data(g, weights)
 
     g.minimum_value = g.minimum_value.to_i
 
@@ -23,5 +23,11 @@ module WeightChart
       labels[Time.local(y).to_i] = y.to_s
     end
     labels
+  end
+
+  def self.populate_data(gruff, weights)
+    return unless weights.any?
+
+    gruff.dataxy(I18n.t(:weight), weights.map { |t| t.created_at.to_i }, weights.map(&:weight))
   end
 end
