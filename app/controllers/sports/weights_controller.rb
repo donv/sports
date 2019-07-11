@@ -52,25 +52,9 @@ module Sports
     def graph(size = 640)
       weights = Weight.order(:created_at).to_a
 
-      g = Gruff::Line.new(size)
-      g.title = t(:weight).capitalize
-      g.hide_legend = true
-      g.hide_dots = true if weights.size > 25
-      g.baseline_value = 100
+      g = WeightChart.chart(weights, size)
 
-      g.dataxy(t(:weight), weights.map { |t| t.created_at.to_i }, weights.map(&:weight)) if weights.any?
-
-      g.minimum_value = g.minimum_value.to_i
-
-      labels = {}
-      years = weights.map(&:created_at).map(&:year).uniq
-      years.each do |y|
-        labels[Time.local(y).to_i] = y.to_s
-      end
-      g.labels = labels
-
-      send_data(g.to_blob, disposition: 'inline', type: 'image/png',
-                           filename: 'weights_chart.png')
+      send_data(g.to_blob, disposition: 'inline', type: 'image/png', filename: 'weights_chart.png')
     end
 
     private
