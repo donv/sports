@@ -1,4 +1,7 @@
 cache: bundler
 
+addons:
+  postgresql: "9.6"
+
 script:
   - bin/rails db:setup test
