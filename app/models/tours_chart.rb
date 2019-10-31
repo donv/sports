@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'gruff'
+
 module ToursChart
   def self.chart(size)
     g = Gruff::Line.new(size)

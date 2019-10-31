@@ -7,14 +7,13 @@ nav.navbar.navbar-default
         span class="icon-bar"
         span class="icon-bar"
         span class="icon-bar"
-      a.navbar-brand href="/" Kubosch Sports
+      a.navbar-brand href=root_path Kubosch Sports
 
     / Collect the nav links, forms, and other content for toggling
     #bs-example-navbar-collapse-1.collapse.navbar-collapse
       ul.nav.navbar-nav.navbar-right
         li class=(:active if controller.controller_name == 'weights')
-          a href="/weights"
+          a href=weights_path
             ' Weights
             span.sr-only (current)
-        li: a href="/routes" Routes
-        li: a href="/tours" Tours
+        li: a href=tours_path Tours

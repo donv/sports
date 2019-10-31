@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'gruff'
+require_dependency 'sports/application_controller'
 
 module Sports
   class WeightsController < ApplicationController

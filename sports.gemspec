@@ -27,18 +27,13 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
 
-  spec.add_dependency 'bootsnap'
   spec.add_dependency 'bootstrap-datepicker-rails'
   spec.add_dependency 'bootstrap-sass'
   spec.add_dependency 'bootstrap3-datetimepicker-rails'
-  spec.add_dependency 'coffee-rails'
-  spec.add_dependency 'dynamic_form'
   spec.add_dependency 'gruff'
   spec.add_dependency 'jquery-rails'
   spec.add_dependency 'mini_racer'
   spec.add_dependency 'momentjs-rails'
-  spec.add_dependency 'pg'
-  spec.add_dependency 'puma'
   spec.add_dependency 'rails', '~> 5.2'
   spec.add_dependency 'rmagick'
   spec.add_dependency 'sass-rails'

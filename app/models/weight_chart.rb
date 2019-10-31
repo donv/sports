@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'gruff'
+
 module WeightChart
   def self.chart(weights, size)
     g = Gruff::Line.new(size)

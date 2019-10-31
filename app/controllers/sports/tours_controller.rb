@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'gruff'
-
 module Sports
   class ToursController < ApplicationController
     def graph_small
