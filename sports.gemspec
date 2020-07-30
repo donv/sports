@@ -34,7 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'jquery-rails'
   spec.add_dependency 'mini_racer'
   spec.add_dependency 'momentjs-rails'
-  spec.add_dependency 'rails', '~> 5.2'
+  spec.add_dependency 'rails', '~> 6.0'
   spec.add_dependency 'rmagick'
   spec.add_dependency 'sass-rails'
   spec.add_dependency 'slim-rails'
