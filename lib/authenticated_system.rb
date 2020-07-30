@@ -17,7 +17,7 @@ module AuthenticatedSystem
 
   # Accesses the current user from the session.
   def current_user
-    @current_user ||= (session[:user] && User.find_by_id(session[:user]))
+    @current_user ||= (session[:user] && User.find_by(id: session[:user]))
   end
 
   # Store the given user in the session.
@@ -104,7 +104,7 @@ module AuthenticatedSystem
   def login_from_cookie
     return unless cookies[:auth_token] && !logged_in?
 
-    user = User.find_by_remember_token(cookies[:auth_token])
+    user = User.find_by(remember_token: cookies[:auth_token])
     return unless user&.remember_token?
 
     user.remember_me
@@ -120,7 +120,7 @@ module AuthenticatedSystem
   # gets BASIC auth info
   def auth_data
     auth_key  = HTTP_AUTH_HEADERS.detect { |h| request.env.key?(h) }
-    auth_data = request.env[auth_key].to_s.split unless auth_key.blank?
+    auth_data = request.env[auth_key].to_s.split if auth_key.present?
     auth_data && auth_data[0] == 'Basic' ? Base64.decode64(auth_data[1]).split(':')[0..1] : [nil, nil]
   end
 end

@@ -32,7 +32,7 @@ module Sports
 
     def update
       @weight = Weight.find(params[:id])
-      if @weight.update_attributes(weight_params)
+      if @weight.update(weight_params)
         flash[:notice] = 'Weight was successfully updated.'
         redirect_to action: :show, id: @weight
       else

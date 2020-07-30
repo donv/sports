@@ -38,7 +38,7 @@ if Rails.env.test? || Rails.env.development?
   RuboCop::RakeTask.new
 
   namespace :test do
-    task :full do
+    task full: :environment do
       Rake::Task['rubocop:auto_correct'].invoke
       Rake::Task['test'].invoke
     end
