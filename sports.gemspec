@@ -14,7 +14,8 @@ Gem::Specification.new do |spec|
   spec.homepage    = 'https://github.com/donv/sports'
   spec.summary     = 'Personal sports stats tracking'
   spec.description = 'Personal sports stats tracking'
-  # spec.license     = "MIT"
+  spec.license     = 'UNLICENSED'
+  spec.required_ruby_version = '~>2.7'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
@@ -43,7 +44,6 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bullet'
   spec.add_development_dependency 'listen'
-  spec.add_development_dependency 'minitest-reporters'
   spec.add_development_dependency 'rails-controller-testing'
   spec.add_development_dependency 'rubocop-performance'
   spec.add_development_dependency 'rubocop-rails'
