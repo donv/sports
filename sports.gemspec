@@ -33,7 +33,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'bootstrap-sass'
   spec.add_dependency 'gruff'
   spec.add_dependency 'jquery-rails'
-  spec.add_dependency 'mini_racer'
   spec.add_dependency 'momentjs-rails'
   spec.add_dependency 'rails', '~> 6.0'
   spec.add_dependency 'rmagick'
