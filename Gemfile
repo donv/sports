@@ -27,7 +27,4 @@ group :development do
 end
 
 # Test against the Rails version the host app uses
-gem 'rails', '~> 8.0.5'
-
-# json 3 removed options that Rails 8.0 still passes; drop this pin with Rails 8.1.
-gem 'json', '< 3'
+gem 'rails', '~> 8.1.4'
