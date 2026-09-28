@@ -38,7 +38,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rmagick'
   spec.add_dependency 'sass-rails'
   spec.add_dependency 'slim-rails'
-  spec.add_dependency 'uglifier'
   spec.add_dependency 'will_paginate'
 
   spec.metadata['rubygems_mfa_required'] = 'true'

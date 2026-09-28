@@ -12,6 +12,7 @@ Layout/LineLength:
 
 Metrics/BlockLength:
   Exclude:
+    - test/dummy/config/environments/*.rb
     - sports.gemspec
     - db/schema.rb
     - test/dummy/db/schema.rb
