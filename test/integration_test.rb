@@ -2,19 +2,14 @@
 
 require 'test_helper'
 
+# Every page in the engine requires a login, so tests start out logged in.
 class IntegrationTest < ActionDispatch::IntegrationTest
-  teardown do
-    # get logout_path reply: 'done'
-    # assert_equal 'done', response.body
+  setup do
+    login
   end
 
-  # def login(login = :admin)
-  #   user = users(login)
-  #   post '/login/password', params: { user: { login: user.login, password: :atest } }
-  #   user
-  # end
-
-  # def assert_logged_in
-  #   cookies[COOKIE_NAME]
-  # end
+  # Log in through the dummy app's test endpoint; the session cannot be written directly.
+  def login(user = users(:bob))
+    post '/account/test_login', params: { user_id: user.id }
+  end
 end
