@@ -54,7 +54,8 @@ module Sports
 
       g = WeightChart.chart(weights, size)
 
-      send_data(g.to_blob, disposition: 'inline', type: 'image/png', filename: 'weights_chart.png')
+      send_data(g.to_image.to_blob, disposition: 'inline', type: 'image/png',
+                                    filename: 'weights_chart.png')
     end
 
     private

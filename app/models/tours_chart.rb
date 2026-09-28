@@ -32,7 +32,7 @@ module ToursChart
   end
 
   def self.populate_data(gruff, tours)
-    gruff.data(I18n.t(:time), tours.map { |t| t.total_time.min + t.total_time.sec / 60 })
+    gruff.data(I18n.t(:time), tours.map { |t| t.total_time.min + (t.total_time.sec / 60) })
     gruff.data(I18n.t(:distance), tours.map(&:distance))
   end
 end

@@ -15,3 +15,13 @@ gemspec
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
+
+group :development do
+  gem 'bullet'
+  gem 'listen'
+  gem 'rails-controller-testing'
+  gem 'rubocop-performance'
+  gem 'rubocop-rails'
+  gem 'simplecov'
+  gem 'sqlite3'
+end

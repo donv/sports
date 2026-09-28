@@ -9,7 +9,7 @@ module Sports
     def graph(size = 640)
       g = ToursChart.chart(size)
 
-      send_data(g.to_blob, disposition: 'inline', type: 'image/png', filename: 'tours_chart.png')
+      send_data(g.to_image.to_blob, disposition: 'inline', type: 'image/png', filename: 'tours_chart.png')
     end
   end
 end

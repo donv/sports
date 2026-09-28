@@ -3,6 +3,7 @@
 require_relative 'boot'
 
 require 'rails/all'
+require 'sprockets/railtie' # <--- make sure this line is here
 
 Bundler.require(*Rails.groups)
 require 'sports'
