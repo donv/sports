@@ -7,7 +7,6 @@ module ToursChart
     g = Gruff::Line.new(size)
     g.theme_37signals
     g.title = I18n.t(:chart)
-    g.font = '/usr/share/fonts/bitstream-vera/Vera.ttf'
     g.legend_font_size = 14
     g.hide_dots = true
 
