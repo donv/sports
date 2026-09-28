@@ -59,7 +59,7 @@ module AuthenticatedSystem
   def login_required
     username, passwd = auth_data
     self.current_user ||= User.authenticate(username, passwd) if username && passwd
-    logged_in? && authorized? ? true : access_denied
+    (logged_in? && authorized?) || access_denied
   end
 
   # Redirect as appropriate when an access request fails.
@@ -79,10 +79,9 @@ module AuthenticatedSystem
       accepts.xml do
         headers['Status']           = 'Unauthorized'
         headers['WWW-Authenticate'] = %(Basic realm="Web Password")
-        render text: "Could't authenticate you", status: '401 Unauthorized'
+        render text: "Could't authenticate you", status: :unauthorized
       end
     end
-    false
   end
 
   # Store the URI of the current request in the session.
@@ -110,13 +109,14 @@ module AuthenticatedSystem
     user.remember_me
     self.current_user = user
     cookies[:auth_token] =
-      { value: self.current_user.remember_token, expires: self.current_user.remember_token_expires_at }
+      { value: current_user.remember_token, expires: current_user.remember_token_expires_at }
     flash[:notice] = 'Logged in successfully'
   end
 
+  HTTP_AUTH_HEADERS = %w[X-HTTP_AUTHORIZATION HTTP_AUTHORIZATION Authorization].freeze
+
   private
 
-  HTTP_AUTH_HEADERS = %w[X-HTTP_AUTHORIZATION HTTP_AUTHORIZATION Authorization].freeze
   # gets BASIC auth info
   def auth_data
     auth_key  = HTTP_AUTH_HEADERS.detect { |h| request.env.key?(h) }

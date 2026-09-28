@@ -33,7 +33,7 @@ end
 
 task default: :test
 
-if Rails.env.test? || Rails.env.development?
+if Rails.env.local?
   require 'rubocop/rake_task'
   RuboCop::RakeTask.new
 

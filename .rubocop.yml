@@ -7,7 +7,7 @@ AllCops:
   NewCops: enable
 
 Layout/LineLength:
-  IgnoreCopDirectives: true
+  AllowCopDirectives: true
   Max: 107
 
 Metrics/BlockLength:

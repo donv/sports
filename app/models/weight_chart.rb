@@ -20,7 +20,7 @@ module WeightChart
 
   def self.labels(weights)
     labels = {}
-    years = weights.map(&:created_at).map(&:year).uniq
+    years = weights.map { |weight| weight.created_at.year }.uniq
     years.each do |y|
       labels[Time.local(y).to_i] = y.to_s
     end

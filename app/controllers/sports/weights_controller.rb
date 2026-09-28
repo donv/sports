@@ -5,11 +5,11 @@ require_dependency 'sports/application_controller'
 module Sports
   class WeightsController < ApplicationController
     def index
-      @weights = Weight.order('created_at DESC')
+      @weights = Weight.order(created_at: :desc)
     end
 
     def show
-      @weight = Weight.find(params[:id])
+      @weight = Weight.find(params.expect(:id))
     end
 
     def new
@@ -27,11 +27,11 @@ module Sports
     end
 
     def edit
-      @weight = Weight.find(params[:id])
+      @weight = Weight.find(params.expect(:id))
     end
 
     def update
-      @weight = Weight.find(params[:id])
+      @weight = Weight.find(params.expect(:id))
       if @weight.update(weight_params)
         flash[:notice] = 'Weight was successfully updated.'
         redirect_to action: :show, id: @weight
@@ -41,7 +41,7 @@ module Sports
     end
 
     def destroy
-      Weight.find(params[:id]).destroy
+      Weight.find(params.expect(:id)).destroy
       redirect_to action: :index
     end
 
@@ -61,7 +61,7 @@ module Sports
     private
 
     def weight_params
-      params.require(:weight).permit(:created_at, :weight)
+      params.expect(weight: %i[created_at weight])
     end
   end
 end
