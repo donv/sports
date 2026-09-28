@@ -27,4 +27,4 @@ group :development do
 end
 
 # Test against the Rails version the host app uses
-gem 'rails', '~> 7.2.0'
+gem 'rails', '~> 8.0.5'
