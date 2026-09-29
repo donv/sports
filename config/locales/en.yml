@@ -8,3 +8,5 @@ en:
   registration_email_sent: Email was sent to %s
   time: "Time"
   weight: weight
+  tour_created: Tour was successfully created.
+  tour_updated: Tour was successfully updated.

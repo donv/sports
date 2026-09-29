@@ -1,0 +1,22 @@
+- @page_title = 'Tour'
+
+dl.dl-horizontal
+  dt Started at
+  dd = @tour.started_at.strftime('%Y-%m-%d %H:%M')
+  dt Route
+  dd = @tour.route&.name
+  dt Total time
+  dd = @tour.total_time.strftime('%H:%M:%S')
+  dt Distance
+  dd = @tour.distance
+  dt Average speed
+  dd = @tour.average_speed
+  dt Max speed
+  dd = @tour.max_speed
+  dt Calories
+  dd = @tour.calories
+  dt Odometer
+  dd = @tour.odo
+=> link_to 'Edit', action: :edit, id: @tour
+| |
+= link_to 'Back', action: :index

@@ -7,3 +7,5 @@ nb:
   registration_email_sent: Email was sent to %s
   time: "Tid"
   weight: vekt
+  tour_created: Turen ble lagret.
+  tour_updated: Turen ble oppdatert.

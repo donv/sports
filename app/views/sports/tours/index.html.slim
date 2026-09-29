@@ -1,2 +1,28 @@
-= link_to action: :graph, id: 1, format: 'png'
-  = image_tag url_for(action: :graph, id: 1, format: 'png'), width: '100%'
+- @page_title = 'Listing tours'
+
+.row
+  .col-md-6
+    = render partial: 'form'
+
+    table.table.table-condensed
+      thead
+        tr
+          th Started at
+          th Route
+          th Time
+          th Distance
+          th
+      tbody
+        - @tours.each do |tour|
+          tr
+            td = tour.started_at.strftime('%Y-%m-%d %H:%M')
+            td = tour.route&.name
+            td = tour.total_time.strftime('%H:%M:%S')
+            td = tour.distance
+            td
+              => link_to 'Show', { action: :show, id: tour }, class: 'btn btn-default btn-xs'
+              => link_to 'Edit', { action: :edit, id: tour }, class: 'btn btn-default btn-xs'
+              = button_to 'Destroy', { action: :destroy, id: tour }, method: :delete, form: { data: { confirm: 'Are you sure?' }, class: 'inline' }, class: 'btn btn-default btn-xs'
+  .col-md-6.text-center
+    = link_to action: :graph, format: 'png'
+      = image_tag url_for(action: :graph, format: 'png'), width: '100%'

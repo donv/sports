@@ -1,0 +1,35 @@
+= form_for @tour do |f|
+  - if @tour.errors.any?
+    .alert.alert-danger
+      ul
+        - @tour.errors.full_messages.each do |message|
+          li = message
+  .row
+    .form-group.col-md-6
+      = f.label :started_at, 'Started at'
+      = f.text_field :started_at, value: @tour.started_at&.strftime('%Y-%m-%d %H:%M'), class: 'datetime form-control'
+    .form-group.col-md-6
+      = f.label :total_time, 'Total time'
+      = f.text_field :total_time, value: @tour.total_time&.strftime('%H:%M:%S'), class: 'form-control', placeholder: 'HH:MM:SS'
+  .row
+    .form-group.col-md-6
+      = f.label :route_id, 'Route'
+      = f.collection_select :route_id, Route.order(:name), :id, :name, {}, class: 'form-control'
+    .form-group.col-md-6
+      = f.label :distance, 'Distance (km)'
+      = f.text_field :distance, class: 'form-control'
+  .row
+    .form-group.col-md-6
+      = f.label :average_speed, 'Average speed (km/h)'
+      = f.text_field :average_speed, class: 'form-control'
+    .form-group.col-md-6
+      = f.label :max_speed, 'Max speed (km/h)'
+      = f.text_field :max_speed, class: 'form-control'
+  .row
+    .form-group.col-md-6
+      = f.label :calories, 'Calories'
+      = f.text_field :calories, class: 'form-control'
+    .form-group.col-md-6
+      = f.label :odo, 'Odometer (km)'
+      = f.text_field :odo, class: 'form-control'
+  = f.submit class: 'btn btn-primary'

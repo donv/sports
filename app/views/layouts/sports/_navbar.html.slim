@@ -16,4 +16,5 @@ nav.navbar.navbar-default
           a href=weights_path
             ' Weights
             span.sr-only (current)
-        li: a href=tours_path Tours
+        li class=(:active if controller.controller_name == 'tours')
+          a href=tours_path Tours

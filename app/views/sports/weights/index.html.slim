@@ -18,7 +18,7 @@
             td
               => link_to 'Show', { action: :show, id: weight }, class: 'btn btn-default btn-xs'
               => link_to 'Edit', { action: :edit, id: weight }, class: 'btn btn-default btn-xs'
-              = link_to 'Destroy', { action: :destroy, id: weight }, confirm: 'Are you sure?', method: :post, class: 'btn btn-default btn-xs'
+              = button_to 'Destroy', { action: :destroy, id: weight }, method: :delete, form: { data: { confirm: 'Are you sure?' }, class: 'inline' }, class: 'btn btn-default btn-xs'
   .col-md-6.text-center
     = link_to action: :graph, id: 1, format: 'png'
       = image_tag url_for(action: :graph, id: 1, format: 'png'), width: '95%'

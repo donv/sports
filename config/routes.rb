@@ -2,7 +2,7 @@
 
 Sports::Engine.routes.draw do
   # resources :routes
-  resources :tours, only: :index do
+  resources :tours do
     collection do
       get :graph
       get :graph_small
